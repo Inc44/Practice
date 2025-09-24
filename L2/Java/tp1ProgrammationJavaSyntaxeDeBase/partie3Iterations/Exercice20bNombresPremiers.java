@@ -3,7 +3,7 @@ package tp1ProgrammationJavaSyntaxeDeBase.partie3Iterations;
 import java.util.Scanner;
 
 public class Exercice20bNombresPremiers {
-	public static boolean estPremier(int number) {
+	public static boolean isPrime(int number) {
 		if (number <= 1)
 			return false;
 		for (int i = 2; i * i <= number; i++) {
@@ -17,7 +17,7 @@ public class Exercice20bNombresPremiers {
 		System.out.print("Entrez n < 1000 : ");
 		int n = sc.nextInt();
 		for (int i = 2; i <= n; i++) {
-			if (estPremier(i)) {
+			if (isPrime(i)) {
 				System.out.print(i + " ");
 			}
 		}
