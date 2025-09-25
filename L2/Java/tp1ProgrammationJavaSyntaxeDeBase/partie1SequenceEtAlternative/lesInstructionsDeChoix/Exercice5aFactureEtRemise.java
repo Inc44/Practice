@@ -6,10 +6,10 @@ public class Exercice5aFactureEtRemise {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Nombre d'articles : ");
-		int articleCount = sc.nextInt();
+		int itemCount = sc.nextInt();
 		System.out.print("Prix unitaire H.T. en euros : ");
 		double unitPriceHT = sc.nextDouble();
-		double totalHT = articleCount * unitPriceHT;
+		double totalHT = itemCount * unitPriceHT;
 		double totalTTC = totalHT * 1.196;
 		double discount = (totalTTC >= 200) ? totalTTC * 0.05 : 0;
 		double finalAmount = totalTTC - discount;

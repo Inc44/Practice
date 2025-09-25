@@ -53,7 +53,6 @@ public class Exercice37RechercheDeSousMatrice {
 				}
 			}
 		}
-
 		sc.close();
 	}
 }
