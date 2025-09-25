@@ -14,7 +14,6 @@ public class Exercice40 {
 	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-
 		System.out.print("Entrez une chaine : ");
 		String s = sc.nextLine();
 		System.out.print("Entrez un caractere : ");
