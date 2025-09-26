@@ -29,7 +29,7 @@ public class Exercice41a {
 		sc.nextLine(); // Consume leftover newline
 		String[] tab = new String[size];
 		for (int i = 0; i < size; i++) {
-			System.out.print("Entrez element " + i + " : ");
+			System.out.print("Entrez l'element " + i + " : ");
 			tab[i] = sc.nextLine();
 		}
 		// String[] tab = {"G1108 bricolage pack tournevis"};

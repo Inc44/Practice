@@ -31,7 +31,7 @@ public class Exercice46 {
 		sc.nextLine(); // Consume leftover newline
 		String[] list = new String[size];
 		for (int i = 0; i < size; i++) {
-			System.out.print("Entrez element " + i + " : ");
+			System.out.print("Entrez l'element " + i + " : ");
 			list[i] = sc.nextLine();
 		}
 		double avg = calculMoyenne(list);
