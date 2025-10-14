@@ -199,7 +199,7 @@ public class TestFraction {
 		Fraction f = new Fraction(1, 2);
 		Fraction f2 = new Fraction(3, 2);
 		f.ajoute(f2);
-		check("1/2 + 3/2 ", f.egaleA(new Fraction(4, 2)), "attendu: 4/2 \nobtenu: " + format(f));
+		check("1/2 + 3/2 ", f.egaleA(new Fraction(2, 1)), "attendu: 2/1 \nobtenu: " + format(f));
 
 		f = new Fraction(10, 2);
 		f2 = new Fraction(5, 4);
@@ -245,11 +245,11 @@ public class TestFraction {
 		f3.soustrait(f4);
 		check("1/2 - -1/2 ", f3.egaleA(new Fraction(1, 1)), "attendu: 1/1 \nobtenu: " + format(f3));
 
-		f3 = new Fraction(1, 2);
-		f4 = new Fraction(-1, 2);
-		f4.soustrait(f3);
+		f3 = new Fraction(-1, 2);
+		f4 = new Fraction(1, 2);
+		f3.soustrait(f4);
 		check(
-			"-1/2 - 1/2 ", f4.egaleA(new Fraction(-1, 1)), "attendu: -1/1 \nobtenu: " + format(f4));
+			"-1/2 - 1/2 ", f3.egaleA(new Fraction(-1, 1)), "attendu: -1/1 \nobtenu: " + format(f3));
 
 		f3 = new Fraction(1, 2);
 		f4 = new Fraction(1, -2);
@@ -281,11 +281,11 @@ public class TestFraction {
 		check(
 			"1/2 * -1/2 ", f3.egaleA(new Fraction(-1, 4)), "attendu: -1/4 \nobtenu: " + format(f3));
 
-		f3 = new Fraction(1, 2);
-		f4 = new Fraction(-1, 2);
-		f4.multiplie(f3);
+		f3 = new Fraction(-1, 2);
+		f4 = new Fraction(1, 2);
+		f3.multiplie(f4);
 		check(
-			"-1/2 * 1/2 ", f4.egaleA(new Fraction(-1, 4)), "attendu: -1/4 \nobtenu: " + format(f4));
+			"-1/2 * 1/2 ", f3.egaleA(new Fraction(-1, 4)), "attendu: -1/4 \nobtenu: " + format(f3));
 
 		f3 = new Fraction(1, 2);
 		f4 = new Fraction(1, -2);
@@ -318,11 +318,11 @@ public class TestFraction {
 		check(
 			"1/2 / -1/2 ", f3.egaleA(new Fraction(-1, 1)), "attendu: -1/1 \nobtenu: " + format(f3));
 
-		f3 = new Fraction(1, 2);
-		f4 = new Fraction(-1, 2);
-		f4.divise(f3);
+		f3 = new Fraction(-1, 2);
+		f4 = new Fraction(1, 2);
+		f3.divise(f4);
 		check(
-			"-1/2 / 1/2 ", f4.egaleA(new Fraction(-1, 1)), "attendu: -1/1 \nobtenu: " + format(f4));
+			"-1/2 / 1/2 ", f3.egaleA(new Fraction(-1, 1)), "attendu: -1/1 \nobtenu: " + format(f3));
 
 		f3 = new Fraction(1, 2);
 		f4 = new Fraction(1, -2);
