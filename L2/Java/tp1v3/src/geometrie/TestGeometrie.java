@@ -12,6 +12,7 @@ public class TestGeometrie {
 		TestPoint();
 		TestSegment();
 		TestVecteur();
+		TestPolyligne();
 		System.out.println("*** TESTS RUN: " + testCount + " - FAILURE: " + testFailed
 			+ " SUCCESS: " + (testCount - testFailed) + " ***");
 	}
@@ -72,6 +73,21 @@ public class TestGeometrie {
 		Vecteur v5 = new Vecteur("v5", new Point(2, 2));
 		check("Test collineaire", v2.collineaire(v5), "[ok]");
 		check("Test non-collineaire", !v1.collineaire(v5), "[ok]");
+		System.out.println();
+	}
+
+	public void TestPolyligne() {
+		System.out.println("== Test Polyligne ");
+		Point[] tabPoints1 = {new Point(0, 0), new Point(1, 1), new Point(2, 0)};
+		Polyligne pl1 = new Polyligne(tabPoints1);
+		check("Test nbPoints", pl1.nbPoints() == 3, "[ok]");
+		pl1.translate(new Vecteur("v", new Point(1, 1)));
+		check("Test translate", pl1.getTabPoints()[0].confondu(new Point(1, 1)), "[ok]");
+		Point[] tabPoints2 = {new Point(0, 0), new Point(3, 0), new Point(0, 4), new Point(0, 0)};
+		Polyligne pl2 = new Polyligne(tabPoints2);
+		check("Test estPolygone (false)", !pl1.estPolygone(), "[ok]");
+		check("Test estPolygone (true)", pl2.estPolygone(), "[ok]");
+		check("Test longueur", pl2.longueur() == 12, "[ok]");
 		System.out.println();
 	}
 
