@@ -1,0 +1,24 @@
+:root
+{
+	/* Violet */
+	--violet-100: #4f3df8;
+	--violet-200: #3f2cf0;
+	/* Gray */
+	--gray-100: #ffffff;
+	--gray-200: #f8f8f8;
+	--gray-300: #d9d9d9;
+	--gray-400: #757575;
+	--gray-500: #202020;
+	--gray-600: #000000;
+	/* Blue */
+	--blue-100: #7c98b6;
+	--blue-200: #33475b;
+	/* Red */
+	--red-100: #ff0201;
+	/* Orange */
+	--orange-100: #fff6ee;
+	/* Greenish cyan */
+	--greenishCyan-100: #73c0ae;
+	/* Khaki */
+	--khaki-100: #ffbe0b;
+}
