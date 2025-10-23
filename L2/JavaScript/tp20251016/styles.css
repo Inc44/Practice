@@ -1,0 +1,165 @@
+:root
+{
+	--red: rgb(237, 53, 36);
+	--orange: rgb(250, 157, 1);
+	--green: rgb(46, 218, 119);
+	--cyan: rgb(20, 199, 222);
+	--blue: rgb(1, 111, 255);
+	--indigo: rgb(68, 79, 173);
+	--purple: rgb(140, 84, 208);
+	--bg: rgb(255, 244, 218);
+}
+
+*
+{
+	box-sizing: border-box;
+}
+
+body
+{
+	background: var(--bg);
+	color: black;
+	font-family: monospace;
+}
+
+h2,
+.movie-title
+{
+	font-family: "Press Start 2P", monospace;
+	text-transform: uppercase;
+}
+
+.page-wrap,
+#like_button_container
+{
+	margin: 0 auto;
+	max-width: 80rem;
+}
+
+.search-bar
+{
+	display: grid;
+	gap: 0.75rem;
+	grid-template-columns: 1fr auto;
+}
+
+.search-input,
+.search-button,
+.status,
+.movie-card,
+.movie-poster
+{
+	border: 0.25rem solid black;
+}
+
+.search-input,
+.search-button
+{
+	font-family: monospace;
+}
+
+.search-input,
+.search-button,
+.status,
+.movie-card
+{
+	box-shadow: 0.375rem 0.375rem 0 black;
+}
+
+.search-input,
+.search-button,
+.status
+{
+	padding: 0.75rem 1rem;
+}
+
+.search-input:focus
+{
+	outline: none;
+}
+
+.search-button
+{
+	background: var(--red);
+	cursor: pointer;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.search-button:active
+{
+	box-shadow: 0.125rem 0.125rem 0 black;
+	transform: translate(0.125rem, 0.125rem);
+}
+
+.gallery
+{
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+	margin-top: 1rem;
+}
+
+.movie-card
+{
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 0.5rem;
+	transition: transform 0.05s ease, box-shadow 0.05s ease;
+	background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.6));
+}
+
+.movie-card:hover
+{
+	box-shadow: 0.625rem 0.625rem 0 black;
+	transform: translate(-0.125rem, -0.125rem);
+}
+
+.movie-poster
+{
+	aspect-ratio: 3/4;
+	box-shadow: 0.25rem 0.25rem 0 black;
+}
+
+.movie-title
+{
+	font-size: 0.75rem;
+	line-height: 1.25;
+	margin: 0.5rem;
+}
+
+.gallery .movie-card:nth-child(7n+1)
+{
+	background-color: var(--red);
+}
+
+.gallery .movie-card:nth-child(7n+2)
+{
+	background-color: var(--orange);
+}
+
+.gallery .movie-card:nth-child(7n+3)
+{
+	background-color: var(--green);
+}
+
+.gallery .movie-card:nth-child(7n+4)
+{
+	background-color: var(--cyan);
+}
+
+.gallery .movie-card:nth-child(7n+5)
+{
+	background-color: var(--blue);
+}
+
+.gallery .movie-card:nth-child(7n+6)
+{
+	background-color: var(--indigo);
+}
+
+.gallery .movie-card:nth-child(7n+7)
+{
+	background-color: var(--purple);
+}

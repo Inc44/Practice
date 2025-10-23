@@ -95,7 +95,8 @@ class MovieApp extends React.Component
 		const searchBar = e('form',
 			{
 				key: 'search-bar',
-				onSubmit: this.handleSearchSubmit
+				onSubmit: this.handleSearchSubmit,
+				className: 'search-bar'
 			},
 			[
 				e('input',
@@ -104,12 +105,14 @@ class MovieApp extends React.Component
 					type: 'text',
 					value: searchQuery,
 					onChange: this.handleSearchChange,
-					placeholder: 'Search for a movie...'
+					placeholder: 'Search for a movie...',
+					className: 'search-input'
 				}),
 				e('button',
 				{
 					key: 'search-button',
-					type: 'submit'
+					type: 'submit',
+					className: 'search-button'
 				}, 'Search')
 			]);
 		let content;
@@ -117,21 +120,24 @@ class MovieApp extends React.Component
 		{
 			content = e('p',
 			{
-				key: 'loading-movies'
+				key: 'loading-movies',
+				className: 'status'
 			}, 'Loading movies...');
 		}
 		else if (error)
 		{
 			content = e('p',
 			{
-				key: 'error-message'
+				key: 'error-message',
+				className: 'status'
 			}, `Error: ${error}`);
 		}
 		else if (movies.length === 0)
 		{
 			content = e('p',
 			{
-				key: 'no-movies-found'
+				key: 'no-movies-found',
+				className: 'status'
 			}, 'No movies found.');
 		}
 		else
@@ -139,20 +145,24 @@ class MovieApp extends React.Component
 			content = e('div',
 			{
 				key: 'movies-container',
+				className: 'gallery'
 			}, movies.map(movie => e('div',
 				{
-					key: movie.id
+					key: movie.id,
+					className: 'movie-card'
 				},
 				[
 					e('img',
 					{
 						key: 'img-' + movie.id,
-						src: movie.poster_path ? `${IMG_URL_PREFIX}${movie.poster_path}` : 'https://lipsum.app/200x200/',
-						alt: movie.title
+						src: movie.poster_path ? `${IMG_URL_PREFIX}${movie.poster_path}` : 'https://lipsum.app/300x400/',
+						alt: movie.title,
+						className: 'movie-poster'
 					}),
 					e('h4',
 					{
-						key: 'title-' + movie.id
+						key: 'title-' + movie.id,
+						className: 'movie-title'
 					}, movie.title)
 				])));
 		}
