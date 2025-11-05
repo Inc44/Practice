@@ -6,7 +6,7 @@ public class TestStack {
 		try {
 			stack.pop();
 		} catch (EmptyStackException exception) {
-			System.out.println("Exception : " + exception.getMessage());
+			System.err.println("Exception : " + exception.getMessage());
 		}
 		Value v = new Value("Test", 42);
 		stack.push(v);
@@ -14,7 +14,7 @@ public class TestStack {
 			Value popped = stack.pop();
 			System.out.println("Popped value : " + popped);
 		} catch (EmptyStackException exception) {
-			System.out.println("Exception: " + exception.getMessage());
+			System.err.println("Exception: " + exception.getMessage());
 		}
 		System.out.println("Empty stack : " + stack.empty());
 	}
