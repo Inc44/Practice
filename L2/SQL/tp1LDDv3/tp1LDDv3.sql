@@ -357,3 +357,26 @@ WHERE
 GROUP BY
 	r.reservoirId,
 	r.nom;
+-- 21
+ALTER TABLE
+	technicien
+ADD
+	telephone VARCHAR(20);
+ALTER TABLE
+	technicien
+ADD
+	email VARCHAR(100);
+ALTER TABLE
+	technicien
+ADD
+	CONSTRAINT chk_technicien_email CHECK (
+		email IS NULL
+		OR email LIKE '%@%'
+	);
+-- 22
+ALTER TABLE
+	analyseeau
+ADD
+	commentaire VARCHAR(250) NULL;
+-- 23
+CREATE INDEX idx_technicien_nom_prenom ON technicien(nom, prenom);
