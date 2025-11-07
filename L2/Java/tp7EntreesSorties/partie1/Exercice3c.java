@@ -4,21 +4,26 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Exercice2 {
-	public static void readPublicLines(String fileName) {
+public class Exercice3c {
+	public static int countLines(String fileName) {
+		int lineCount = 0;
 		try (Scanner sc = new Scanner(new File(fileName))) {
 			while (sc.hasNextLine()) {
-				String line = sc.nextLine();
-				if (line.indexOf("public") != -1) {
-					System.out.println(line);
-				}
+				sc.nextLine();
+				lineCount++;
 			}
 		} catch (FileNotFoundException exception) {
 			System.err.println("File not found: " + exception.getMessage());
 		}
+		return lineCount;
 	}
 	public static void main(String[] args) {
-		String fileName = "Java/tp7EntreesSorties/partie1/Exercice1a.java";
-		readPublicLines(fileName);
+		File dataDir = new File("data");
+		if (!dataDir.exists()) {
+			dataDir.mkdir();
+		}
+		String fileName = "data/texte.txt";
+		int lineCount = countLines(fileName);
+		System.out.println(lineCount);
 	}
 }

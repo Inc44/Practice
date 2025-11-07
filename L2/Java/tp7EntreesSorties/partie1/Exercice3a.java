@@ -9,9 +9,9 @@ import java.util.Scanner;
 public class Exercice3a {
 	public static void createUserFile(String fileName) {
 		try (PrintWriter writer = new PrintWriter(new FileWriter(fileName));
-			Scanner scanner = new Scanner(System.in)) {
+			Scanner sc = new Scanner(System.in)) {
 			while (true) {
-				String line = scanner.nextLine();
+				String line = sc.nextLine();
 				if (line.equals("0")) {
 					break;
 				}
