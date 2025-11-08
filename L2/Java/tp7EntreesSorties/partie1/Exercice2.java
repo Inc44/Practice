@@ -9,7 +9,7 @@ public class Exercice2 {
 		try (Scanner sc = new Scanner(new File(fileName))) {
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
-				if (line.indexOf("public") != -1) {
+				if (line.contains("public")) {
 					System.out.println(line);
 				}
 			}

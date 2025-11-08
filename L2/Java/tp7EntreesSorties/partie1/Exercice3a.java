@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Exercice3a {
-	public static void createUserFile(String fileName) {
+	public static void createFile(String fileName) {
 		try (PrintWriter writer = new PrintWriter(new FileWriter(fileName));
 			Scanner sc = new Scanner(System.in)) {
 			while (true) {
@@ -27,6 +27,6 @@ public class Exercice3a {
 			dataDir.mkdir();
 		}
 		String fileName = "data/texte.txt";
-		createUserFile(fileName);
+		createFile(fileName);
 	}
 }
