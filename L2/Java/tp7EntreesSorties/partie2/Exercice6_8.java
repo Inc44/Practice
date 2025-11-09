@@ -1,29 +1,33 @@
 package tp7EntreesSorties.partie2;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
 
 public class Exercice6_8 {
 	public static void concatenateFiles(
 		String srcFileName, String srcFileName2, String dstFileName) {
-		try (PrintWriter writer = new PrintWriter(new FileWriter(dstFileName))) {
-			try (Scanner sc = new Scanner(new File(srcFileName))) {
-				while (sc.hasNextLine()) {
-					writer.println(sc.nextLine());
+		try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(dstFileName))) {
+			File file1 = new File(srcFileName);
+			if (!file1.exists()) {
+				System.err.println("File not found");
+			} else {
+				long fileLength = file1.length();
+				try (DataInputStream dis1 = new DataInputStream(new FileInputStream(file1))) {
+					for (int i = 0; i < fileLength / 8; i++) dos.writeDouble(dis1.readDouble());
 				}
-			} catch (FileNotFoundException exception) {
-				System.err.println("File not found: " + exception.getMessage());
 			}
-			try (Scanner sc = new Scanner(new File(srcFileName2))) {
-				while (sc.hasNextLine()) {
-					writer.println(sc.nextLine());
+			File file2 = new File(srcFileName2);
+			if (!file2.exists()) {
+				System.err.println("File not found");
+			} else {
+				long fileLength2 = file2.length();
+				try (DataInputStream dis2 = new DataInputStream(new FileInputStream(file2))) {
+					for (int i = 0; i < fileLength2 / 8; i++) dos.writeDouble(dis2.readDouble());
 				}
-			} catch (FileNotFoundException exception) {
-				System.err.println("File not found: " + exception.getMessage());
 			}
 		} catch (IOException exception) {
 			exception.printStackTrace();
@@ -34,9 +38,9 @@ public class Exercice6_8 {
 		if (!dataDir.exists()) {
 			dataDir.mkdir();
 		}
-		String reels1NegFileName = "data/Reels1neg.txt";
-		String reels1PosFileName = "data/Reels1pos.txt";
-		String reels3FileName = "data/Reels3.txt";
+		String reels1NegFileName = "data/Reels1neg.bin";
+		String reels1PosFileName = "data/Reels1pos.bin";
+		String reels3FileName = "data/Reels3.bin";
 		concatenateFiles(reels1NegFileName, reels1PosFileName, reels3FileName);
 	}
 }

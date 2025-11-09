@@ -1,24 +1,34 @@
 package tp7EntreesSorties.partie2;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
 
 public class Exercice6_7 {
 	public static void createSignedFiles(
 		String srcFileName, String negFileName, String posFileName) {
-		try (Scanner sc = new Scanner(new File(srcFileName));
-			PrintWriter negWriter = new PrintWriter(new FileWriter(negFileName));
-			PrintWriter posWriter = new PrintWriter(new FileWriter(posFileName))) {
-			while (sc.hasNextDouble()) {
-				double number = sc.nextDouble();
+		File file = new File(srcFileName);
+		if (!file.exists()) {
+			System.err.println("File not found");
+			return;
+		}
+		long fileLength = file.length();
+		if (fileLength == 0) {
+			return;
+		}
+		try (DataInputStream dis = new DataInputStream(new FileInputStream(file));
+			DataOutputStream negDos = new DataOutputStream(new FileOutputStream(negFileName));
+			DataOutputStream posDos = new DataOutputStream(new FileOutputStream(posFileName))) {
+			for (int i = 0; i < fileLength / 8; i++) {
+				double number = dis.readDouble();
 				if (number < 0) {
-					negWriter.println(number);
+					negDos.writeDouble(number);
 				} else {
-					posWriter.println(number);
+					posDos.writeDouble(number);
 				}
 			}
 		} catch (FileNotFoundException exception) {
@@ -32,9 +42,9 @@ public class Exercice6_7 {
 		if (!dataDir.exists()) {
 			dataDir.mkdir();
 		}
-		String reels1FileName = "data/Reels1.txt";
-		String reels1NegFileName = "data/Reels1neg.txt";
-		String reels1PosFileName = "data/Reels1pos.txt";
+		String reels1FileName = "data/Reels1.bin";
+		String reels1NegFileName = "data/Reels1neg.bin";
+		String reels1PosFileName = "data/Reels1pos.bin";
 		createSignedFiles(reels1FileName, reels1NegFileName, reels1PosFileName);
 	}
 }

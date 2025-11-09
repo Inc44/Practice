@@ -11,7 +11,7 @@ public class Exercice6_6 {
 		if (!dataDir.exists()) {
 			dataDir.mkdir();
 		}
-		String reels2FileName = "data/Reels2.txt";
+		String reels2FileName = "data/Reels2.bin";
 		ecriture(reels2FileName, 30, -10.0, 60.0);
 		Scanner sc = new Scanner(System.in);
 		String fileName = sc.nextLine();

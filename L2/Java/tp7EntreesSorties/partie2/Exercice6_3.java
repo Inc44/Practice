@@ -1,34 +1,39 @@
 package tp7EntreesSorties.partie2;
 
+import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class Exercice6_3 {
 	public static void stats(String fileName) {
-		try (Scanner sc = new Scanner(new File(fileName))) {
-			if (!sc.hasNextDouble()) {
-				return;
-			}
-			double first = sc.nextDouble();
+		File file = new File(fileName);
+		if (!file.exists()) {
+			System.err.println("File not found");
+			return;
+		}
+		long fileLength = file.length();
+		if (fileLength == 0) {
+			return;
+		}
+		try (DataInputStream dis = new DataInputStream(new FileInputStream(file))) {
+			double first = dis.readDouble();
 			double max = first;
 			double min = first;
 			double sum = first;
-			int count = 1;
-			while (sc.hasNextDouble()) {
-				double number = sc.nextDouble();
+			for (int i = 1; i < fileLength / 8; i++) {
+				double number = dis.readDouble();
 				if (number < min)
 					min = number;
 				if (number > max)
 					max = number;
 				sum += number;
-				count++;
 			}
 			System.out.println("Max: " + max);
 			System.out.println("Min: " + min);
-			System.out.println("Average: " + sum / count);
-		} catch (FileNotFoundException exception) {
-			System.err.println("File not found: " + exception.getMessage());
+			System.out.println("Average: " + sum / (fileLength / 8));
+		} catch (IOException exception) {
+			exception.printStackTrace();
 		}
 	}
 	public static void main(String[] args) {
@@ -36,7 +41,7 @@ public class Exercice6_3 {
 		if (!dataDir.exists()) {
 			dataDir.mkdir();
 		}
-		String reels1FileName = "data/Reels1.txt";
+		String reels1FileName = "data/Reels1.bin";
 		stats(reels1FileName);
 	}
 }
