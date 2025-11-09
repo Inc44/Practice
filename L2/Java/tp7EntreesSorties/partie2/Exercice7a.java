@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
@@ -18,6 +19,8 @@ public class Exercice7a {
 				number += rand.nextDouble(20.0);
 				dos.writeDouble(number);
 			}
+		} catch (FileNotFoundException exception) {
+			System.err.println("File not found: " + exception.getMessage());
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
@@ -36,6 +39,8 @@ public class Exercice7a {
 			for (int i = 0; i < fileLength / 8; i++) {
 				System.out.println(dis.readDouble());
 			}
+		} catch (FileNotFoundException exception) {
+			System.err.println("File not found: " + exception.getMessage());
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

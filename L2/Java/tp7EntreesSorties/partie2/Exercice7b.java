@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import static tp7EntreesSorties.partie2.Exercice7a.readFile;
@@ -24,6 +25,8 @@ public class Exercice7b {
 				DataOutputStream dos = new DataOutputStream(new FileOutputStream(r3FileName))) {
 				long fileLength = file.length();
 				for (int i = 0; i < fileLength / 8; i++) dos.writeDouble(dis.readDouble());
+			} catch (FileNotFoundException exception) {
+				System.err.println("File not found: " + exception.getMessage());
 			} catch (IOException exception) {
 				exception.printStackTrace();
 			}
@@ -85,6 +88,8 @@ public class Exercice7b {
 					has2 = false;
 				}
 			}
+		} catch (FileNotFoundException exception) {
+			System.err.println("File not found: " + exception.getMessage());
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

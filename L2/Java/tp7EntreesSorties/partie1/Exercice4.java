@@ -2,6 +2,7 @@ package tp7EntreesSorties.partie1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +19,7 @@ public class Exercice4 {
 		}
 	}
 	public static void createFileWithoutNames(String srcFileName, String dstFileName) {
-		try (Scanner sc = new Scanner(new File(srcFileName));
+		try (Scanner sc = new Scanner(new FileReader(srcFileName));
 			PrintWriter writer = new PrintWriter(new FileWriter(dstFileName))) {
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
@@ -38,7 +39,7 @@ public class Exercice4 {
 		}
 	}
 	public static void readFile(String fileName) {
-		try (Scanner sc = new Scanner(new File(fileName))) {
+		try (Scanner sc = new Scanner(new FileReader(fileName))) {
 			while (sc.hasNextLine()) {
 				System.out.println(sc.nextLine());
 			}

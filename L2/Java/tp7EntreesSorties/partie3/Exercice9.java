@@ -14,6 +14,8 @@ public class Exercice9 {
 				double number = rand.nextDouble(max - min) + min;
 				raf.writeDouble(number);
 			}
+		} catch (FileNotFoundException exception) {
+			System.err.println("File not found: " + exception.getMessage());
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

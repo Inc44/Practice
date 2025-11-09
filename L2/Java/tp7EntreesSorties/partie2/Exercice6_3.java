@@ -3,6 +3,7 @@ package tp7EntreesSorties.partie2;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Exercice6_3 {
@@ -32,6 +33,8 @@ public class Exercice6_3 {
 			System.out.println("Max: " + max);
 			System.out.println("Min: " + min);
 			System.out.println("Average: " + sum / (fileLength / 8));
+		} catch (FileNotFoundException exception) {
+			System.err.println("File not found: " + exception.getMessage());
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

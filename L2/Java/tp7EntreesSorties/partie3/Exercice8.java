@@ -14,6 +14,8 @@ public class Exercice8 {
 				int number = rand.nextInt(max - min) + min;
 				raf.writeInt(number);
 			}
+		} catch (FileNotFoundException exception) {
+			System.err.println("File not found: " + exception.getMessage());
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

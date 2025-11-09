@@ -2,12 +2,13 @@ package tp7EntreesSorties.partie1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Scanner;
 
 public class Exercice3c {
 	public static int countLines(String fileName) {
 		int lineCount = 0;
-		try (Scanner sc = new Scanner(new File(fileName))) {
+		try (Scanner sc = new Scanner(new FileReader(fileName))) {
 			while (sc.hasNextLine()) {
 				sc.nextLine();
 				lineCount++;

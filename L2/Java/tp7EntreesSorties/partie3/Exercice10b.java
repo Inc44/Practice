@@ -1,6 +1,7 @@
 package tp7EntreesSorties.partie3;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -13,6 +14,8 @@ public class Exercice10b {
 				double fee = raf.readDouble();
 				System.out.println(name + ", " + age + " ans, cotisation : " + fee + " euros");
 			}
+		} catch (FileNotFoundException exception) {
+			System.err.println("File not found: " + exception.getMessage());
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

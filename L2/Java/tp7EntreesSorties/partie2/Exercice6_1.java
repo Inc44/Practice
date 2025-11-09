@@ -2,6 +2,7 @@ package tp7EntreesSorties.partie2;
 
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
@@ -14,6 +15,8 @@ public class Exercice6_1 {
 				double number = rand.nextDouble(max - min) + min;
 				dos.writeDouble(number);
 			}
+		} catch (FileNotFoundException exception) {
+			System.err.println("File not found: " + exception.getMessage());
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

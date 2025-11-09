@@ -3,6 +3,7 @@ package tp7EntreesSorties.partie2;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Exercice6_2 {
@@ -20,6 +21,8 @@ public class Exercice6_2 {
 			for (int i = 0; i < fileLength / 8; i++) {
 				System.out.println(dis.readDouble());
 			}
+		} catch (FileNotFoundException exception) {
+			System.err.println("File not found: " + exception.getMessage());
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

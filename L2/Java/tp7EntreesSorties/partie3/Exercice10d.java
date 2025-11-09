@@ -1,6 +1,7 @@
 package tp7EntreesSorties.partie3;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
@@ -26,6 +27,8 @@ public class Exercice10d {
 					raf.readDouble();
 				}
 			}
+		} catch (FileNotFoundException exception) {
+			System.err.println("File not found: " + exception.getMessage());
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
