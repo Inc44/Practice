@@ -80,7 +80,9 @@ function renderMovies()
 		const card = createMovieCard(movie, rented);
 		movieListEl.appendChild(card);
 	});
-	console.log(pagedMovies.data[0]);
+	// 1
+	// console.log(pagedMovies.data[0]);
+	console.log(pagedMovies[0]);
 }
 
 function createMovieCard(movie, rented)
@@ -91,7 +93,15 @@ function createMovieCard(movie, rented)
 	card.className = 'card movie-card h-100';
 	card.setAttribute('tabindex', '0');
 	const img = document.createElement('img');
-	img.src = IMAGE_BASE_URL + movie.poster_path;
+	// 4
+	if (movie.poster_path)
+	{
+		img.src = IMAGE_BASE_URL + movie.poster_path;
+	}
+	else
+	{
+		img.src = '../../Ressources graphiques/Placeholder pour les vignettes.png';
+	}
 	img.alt = `Affiche du film ${movie.title}`;
 	img.className = 'card-img-top movie-poster';
 	const body = document.createElement('div');

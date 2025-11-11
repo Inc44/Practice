@@ -16,11 +16,31 @@
 	<main class="my-3" role="main">
 		<!-- Bannière -->
 		<section class="mb-4 bg-light text-center" id="banner">
-			<img alt="Bannière Choisissez et louez vos films préférés" class="img-fluid rounded" src="assets/img/home-banner-1.png" />
+			<!-- 3 -->
+			<picture>
+				<source media="(min-width: 64rem)" srcset="../../Ressources%20graphiques/Nouvelle%20banni%C3%A8re.png" />
+				<source media="(max-width: 64rem)" srcset="../../Ressources%20graphiques/Nouvelle%20banni%C3%A8re%20mobile.png" />
+				<img alt="Bannière Choisissez et louez vos films préférés" class="img-fluid rounded" src="assets/img/home-banner-1.png" />
+			</picture>
 		</section>
 		<div class="container">
+			<!-- 2 -->
+			<section class="mb-4" id="introduction">
+				<div class="bg-white border p-4 rounded">
+					<p>Bienvenue sur notre plateforme de location de films, simple et intuitive.</p>
+					<!-- 6 -->
+					<p>Ici, vous pouvez trouver facilement vos films préférés, les louer en un clic, et profiter d’un large <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">catalogue qui est régulièrement mis à jour</a>.</p>
+					<p class="mb-0">Découvrez une expérience fluide, accessible sur tous vos appareils, pour que le cinéma soit partout avec vous.</p>
+				</div>
+			</section>
+			<!-- 5 -->
+			<section class="mb-4" id="filtrer">
+				<div class="text-end">
+					<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#filters">Filtrer</button>
+				</div>
+			</section>
 			<!-- Filtres -->
-			<section class="mb-4" id="filters">
+			<section class="mb-4 collapse" id="filters">
 				<form aria-label="Filtres films" class="row g-3 align-items-center" id="filterForm">
 					<div class="col-sm-6 col-md-3">
 						<label class="form-label" for="searchText">Recherche titre</label>
@@ -29,10 +49,11 @@
 					<div class="col-sm-6 col-md-3">
 						<label class="form-label" for="filterLang">Langue</label>
 						<select aria-label="Filtrer par langue" class="form-select" id="filterLang">
+							<!-- 7 -->
 							<option value="">Toutes</option>
-							<option value="en">Français</option>
+							<option value="fr">Français</option>
 							<option value="en">Anglais</option>
-							<option value="en">Espagnol</option>
+							<option value="es">Espagnol</option>
 							<!-- Ajouter langues selon API -->
 						</select>
 					</div>
@@ -60,6 +81,49 @@
 						<span class="visually-hidden">Chargement...</span>
 					</div>
 					<button class="btn btn-primary ms-3" id="loadMoreBtn" type="button">Charger plus</button>
+				</div>
+			</section>
+			<!-- 2 -->
+			<section class="mb-4" id="presentation">
+				<div class="bg-white border p-4 rounded">
+					<h2>Pourquoi choisir notre service ?</h2>
+					<h3>Une offre complète pour tous les goûts</h3>
+					<p><b><u>Notre catalogue inclut une vaste sélection de films, tous genres confondus et en plusieurs langues.</u></b></p>
+					<p>Vous bénéficiez d’une interface rapide et facile à utiliser, conçue pour vous apporter satisfaction à chaque étape.</p>
+					<ul>
+						<li>Un large choix de films récents et classiques</li>
+						<li>Une navigation intuitive avec filtres performants</li>
+						<li>Un suivi personnalisé de vos locations enregistrées</li>
+					</ul>
+					<p class="mb-0"><b>Avec notre plateforme, louez et regardez vos films préférés où que vous soyez, quand vous le souhaitez. Profitez d’un service simple, fiable, et pensé pour vous.</b></p>
+				</div>
+			</section>
+			<!-- 9 -->
+			<section class="mb-4" id="contact">
+				<div class="bg-white border p-4 rounded">
+					<h2>Contactez-nous</h2>
+					<p>Vous avez une question ou un retour à nous faire ? Remplissez ce formulaire, nous vous répondrons rapidement.</p>
+					<form class="row g-3" novalidate>
+						<div class="col-6">
+							<label for="contactName" class="form-label">Nom</label>
+							<input type="text" class="form-control" id="contactName" placeholder="Votre nom" />
+						</div>
+						<div class="col-6">
+							<label for="contactEmail" class="form-label">Email</label>
+							<input type="email" class="form-control" id="contactEmail" placeholder="vous@example.com" />
+						</div>
+						<div class="col-12">
+							<label for="contactSubject" class="form-label">Sujet</label>
+							<input type="text" class="form-control" id="contactSubject" placeholder="Sujet du message" />
+						</div>
+						<div class="col-12 mb-2">
+							<label for="contactMessage" class="form-label">Message</label>
+							<textarea class="form-control" id="contactMessage" rows="4" placeholder="Votre message"></textarea>
+						</div>
+						<div class="col-12 text-end">
+							<button type="submit" class="btn btn-primary">Envoyer</button>
+						</div>
+					</form>
 				</div>
 			</section>
 		</div>
@@ -101,6 +165,8 @@
 				</div>
 				<div class="modal-body p-0">
 					<video controls id="videoPlayer" preload="none" style="width:100%; height:auto;">
+						<!-- 8 -->
+						<source src="https://www.lexprod.net/files/cours/film-1.webm" type="video/webm">
 						<source src="https://www.lexprod.net/files/cours/film-1.mp4" type="video/mp4"> Votre navigateur ne supporte pas la vidéo HTML5.
 					</video>
 				</div>
