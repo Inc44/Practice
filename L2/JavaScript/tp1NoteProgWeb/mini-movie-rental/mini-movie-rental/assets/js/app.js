@@ -27,6 +27,26 @@ const rentBtn = document.getElementById('rentBtn');
 const watchTitle = document.getElementById('watchTitle');
 const videoPlayer = document.getElementById('videoPlayer');
 let selectedMovie = null;
+
+function applyFilters(movies)
+{
+	const lang = filterLangEl.value;
+	const vote = filterVoteEl.value;
+	const date = filterDateEl.value;
+	if (lang)
+	{
+		movies = movies.filter(movie => movie.original_language === lang);
+	}
+	if (vote)
+	{
+		movies = movies.filter(movie => movie.vote_average >= vote);
+	}
+	if (date)
+	{
+		movies = movies.filter(movie => movie.release_date >= date);
+	}
+	return movies;
+}
 async function fetchMovies(page = 1)
 {
 	const searchText = searchTextEl.value.trim();
@@ -60,6 +80,7 @@ async function fetchMovies(page = 1)
 		{
 			movies = movies.concat(data.results);
 		}
+		movies = applyFilters(movies);
 		currentPage = page;
 		renderMovies();
 		updateTotalResults();
