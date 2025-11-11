@@ -1,0 +1,39 @@
+body
+{
+	background-color: #f8f9fa;
+}
+
+#banner
+{
+	border-radius: 6px;
+	/*box-shadow: 0px 0px 8px rgba(0,0,0,0.1);*/
+}
+
+.movie-card
+{
+	cursor: pointer;
+	transition: transform 0.2s ease-in-out;
+}
+
+.movie-card:hover
+{
+	transform: scale(1.05);
+}
+
+.movie-poster
+{
+	width: 100%;
+	height: auto;
+	border-radius: 4px;
+}
+
+.movie-info
+{
+	margin-top: 0.5rem;
+}
+
+.rent-btn,
+.watch-btn
+{
+	width: 100%;
+}

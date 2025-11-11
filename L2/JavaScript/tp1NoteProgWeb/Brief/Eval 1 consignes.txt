@@ -1,0 +1,81 @@
+Doc bootstrap => https://getbootstrap.com/docs/5.2/getting-started/introduction/
+
+--------------
+
+EXO 1 - 1 point
+J'ai constaté une erreur JS dans la console, mais je ne sais pas ce que c'est. Peux-tu voir pour la corriger ?
+
+------------------------------------------------
+
+EXO 2 - 2 points
+On va ajouter des textes sur la page d'accueil, voir ci-dessous. Merci de faire une présentation correcte, les exemples de Bootstrap devraient suffire.
+Textes à insérer sur la page :
+
+# Bloc d’introduction (à insérer entre la bannière et les filtres)
+
+Texte :
+Bienvenue sur notre plateforme de location de films, simple et intuitive.
+Ici, vous pouvez trouver facilement vos films préférés, les louer en un clic, et profiter d’un large catalogue qui est régulièrement mis à jour.
+Découvrez une expérience fluide, accessible sur tous vos appareils, pour que le cinéma soit partout avec vous.
+
+# Bloc de présentation plus détaillée (à placer sous la liste, avant le footer, mais après la pagination)
+
+Titre H2 : Pourquoi choisir notre service ?
+Titre H3 : Une offre complète pour tous les goûts
+Paragraphe (avec mots en gras et soulignés) :
+Notre catalogue inclut une vaste sélection de films, tous genres confondus et en plusieurs langues.
+Vous bénéficiez d’une interface rapide et facile à utiliser, conçue pour vous apporter satisfaction à chaque étape.
+
+Liste à puces (avec au moins 3 éléments) :
+- Un large choix de films récents et classiques
+- Une navigation intuitive avec filtres performants
+- Un suivi personnalisé de vos locations enregistrées
+
+Paragraphe final (avec texte en gras) :
+Avec notre plateforme, louez et regardez vos films préférés où que vous soyez, quand vous le souhaitez. Profitez d’un service simple, fiable, et pensé pour vous.
+
+------------------------------------------------
+
+EXO 3 - 2 points
+Remplacer la bannière actuelle par celle fournie. Il y en a deux, une pour le mobile et une pour les écrans desktop.
+
+------------------------------------------------
+
+EXO 4 - 3 points
+Dans la liste des films, certains n'ont pas d'image. On veut donc afficher une image par défaut. J'ai fourni l'image.
+
+------------------------------------------------
+
+EXO 5 - 9 points
+Les filtres prennent trop de place et ne sont pas toujours utilisés.
+On veut les masquer par défaut, et les afficher en cliquant sur un bouton.
+Pour le bouton, utiliser le style "btn-secondary", avec le texte "Filtrer".
+
+
+------------------------------------------------
+
+EXO 6 : attention, il faut avoir fait l'exo 2 - 0.5 point
+On va ajouter un lien dans le texte d'introduction. Sur le texte "catalogue qui est régulièrement mis à jour", ajouter un lien vers https://www.themoviedb.org/.
+Attention, c'est un lien vers un autre site, il doit s'ouvrir dans un nouvel onglet.
+
+------------------------------------------------
+
+EXO 7 - 2 points
+Il y a une erreur de filtre sur les langues. C'est toujours l'anglais qui est appliqué. De plus, la date de sortie ne semble pas être prise en compte dans le filtre.
+
+------------------------------------------------
+
+EXO 8 - 0.5 points
+On veut ajouter un nouveau format de vidéo, le webm. Voici le lien : https://www.lexprod.net/files/cours/film-1.webm
+
+------------------------------------------------
+
+EXO 9 (bonus) - 4 points
+Ajouter un formulaire de contact en bas de la page, avec :
+- Nom
+- Email
+- Sujet
+- Message
+Prévoir un titre et un court texte :
+- Titre : Contactez-nous
+- Texte : Vous avez une question ou un retour à nous faire ? Remplissez ce formulaire, nous vous répondrons rapidement.

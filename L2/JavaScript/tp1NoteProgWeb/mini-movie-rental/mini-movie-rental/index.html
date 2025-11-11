@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+	<title>Location de films</title>
+	<link href="vendors/bootstrap.min.css" rel="stylesheet" />
+	<link href="assets/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+	<header class="bg-dark text-white p-3">
+		<h1 class="text-center">Location de films</h1>
+	</header>
+	<main class="my-3" role="main">
+		<!-- Bannière -->
+		<section class="mb-4 bg-light text-center" id="banner">
+			<img alt="Bannière Choisissez et louez vos films préférés" class="img-fluid rounded" src="assets/img/home-banner-1.png" />
+		</section>
+		<div class="container">
+			<!-- Filtres -->
+			<section class="mb-4" id="filters">
+				<form aria-label="Filtres films" class="row g-3 align-items-center" id="filterForm">
+					<div class="col-sm-6 col-md-3">
+						<label class="form-label" for="searchText">Recherche titre</label>
+						<input aria-describedby="searchHelp" class="form-control" id="searchText" placeholder="Titre" type="text" />
+					</div>
+					<div class="col-sm-6 col-md-3">
+						<label class="form-label" for="filterLang">Langue</label>
+						<select aria-label="Filtrer par langue" class="form-select" id="filterLang">
+							<option value="">Toutes</option>
+							<option value="en">Français</option>
+							<option value="en">Anglais</option>
+							<option value="en">Espagnol</option>
+							<!-- Ajouter langues selon API -->
+						</select>
+					</div>
+					<div class="col-sm-6 col-md-3">
+						<label class="form-label" for="filterVote">Note minimale</label>
+						<input class="form-control" id="filterVote" max="10" min="0" placeholder="0 à 10" step="0.1" type="number" />
+					</div>
+					<div class="col-sm-6 col-md-3">
+						<label class="form-label" for="filterDate">Sorti après</label>
+						<input class="form-control" id="filterDate" type="date" />
+					</div>
+					<div class="col-12 text-end">
+						<button class="btn btn-secondary" type="submit">Appliquer les filtres</button>
+					</div>
+				</form>
+			</section>
+			<!-- Résultats & pagination -->
+			<section class="row gy-4" id="movieList"></section>
+			<section class="d-flex justify-content-between align-items-center my-3" id="paginationControls">
+				<div>
+					<span aria-live="polite" id="totalResults"></span>
+				</div>
+				<div>
+					<div class="spinner-border text-primary ms-3" id="loader" role="status" style="display:none;">
+						<span class="visually-hidden">Chargement...</span>
+					</div>
+					<button class="btn btn-primary ms-3" id="loadMoreBtn" type="button">Charger plus</button>
+				</div>
+			</section>
+		</div>
+	</main>
+	<footer class="bg-dark text-white p-3 text-center"> © 2025 Location de films - Projet pédagogique </footer>
+	<!-- Modale détails film -->
+	<div aria-hidden="true" aria-labelledby="movieDetailTitle" class="modal fade" id="movieDetailModal" tabindex="-1">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="movieDetailTitle"></h5>
+					<button aria-label="Fermer" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+				</div>
+				<div class="modal-body" id="movieDetailBody"></div>
+				<div class="modal-footer">
+					<button class="btn btn-success" id="rentBtn" type="button">Louer</button>
+					<button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modale confirmation location -->
+	<div aria-hidden="true" aria-labelledby="confirmRentTitle" class="modal fade" id="confirmRentModal" tabindex="-1">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content p-3 text-center">
+				<h5 id="confirmRentTitle">Location confirmée !</h5>
+				<p>Profitez de votre film.</p>
+				<button class="btn btn-primary" data-bs-dismiss="modal" type="button">OK</button>
+			</div>
+		</div>
+	</div>
+	<!-- Modale vidéo -->
+	<div aria-hidden="true" aria-labelledby="watchTitle" class="modal fade" id="watchModal" tabindex="-1">
+		<div class="modal-dialog modal-lg modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="watchTitle"></h5>
+					<button aria-label="Fermer" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+				</div>
+				<div class="modal-body p-0">
+					<video controls id="videoPlayer" preload="none" style="width:100%; height:auto;">
+						<source src="https://www.lexprod.net/files/cours/film-1.mp4" type="video/mp4"> Votre navigateur ne supporte pas la vidéo HTML5.
+					</video>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="vendors/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/app.js?v=20251023"></script>
+</body>
+
+</html>
