@@ -1,5 +1,6 @@
 package tp7EntreesSorties.partie1;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
@@ -15,6 +16,10 @@ public class Exercice1b {
 		}
 	}
 	public static void main(String[] args) {
+		File dataDir = new File("data");
+		if (!dataDir.exists()) {
+			dataDir.mkdir();
+		}
 		String fileName = "data/essai.txt";
 		readFile(fileName);
 	}
