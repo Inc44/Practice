@@ -3,13 +3,23 @@ body
 	background: var(--gray-100);
 	color: var(--gray-600);
 	font-family: Archivo, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+header
+{
+	background: var(--gray-100);
+	padding: 0.5rem 0;
+	position: sticky;
+	top: 0;
 }
 
 .header-logo
 {
 	display: block;
 	height: 3.5rem;
-	margin: 0.5rem auto;
+	margin: 0rem auto;
 }
 
 .hero
@@ -20,7 +30,7 @@ body
 .container
 {
 	margin: 0 auto;
-	width: 90rem;
+	max-width: 90rem;
 }
 
 .hero-grid,
@@ -429,4 +439,52 @@ h3
 .footer-icon
 {
 	margin-top: 2.5rem;
+}
+
+@media (max-width: 90rem)
+{
+
+	.about-image,
+	.benefits-image,
+	.hero-image
+	{
+		width: 42rem;
+	}
+
+	.about-image
+	{
+		transform: unset;
+	}
+}
+
+@media (max-width: 30rem)
+{
+	h1
+	{
+		font-size: 2.4rem;
+		line-height: 2.7rem;
+	}
+
+	.hero-grid,
+	.about-grid,
+	.features-grid,
+	.risks-grid,
+	.benefits-grid,
+	.footer-grid,
+	.stats
+	{
+		grid-template-columns: 1fr;
+	}
+
+	.about-image,
+	.benefits-image,
+	.hero-image
+	{
+		width: 24rem;
+	}
+
+	.list--two-columns
+	{
+		columns: 1;
+	}
 }
