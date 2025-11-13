@@ -27,7 +27,10 @@ const rentBtn = document.getElementById('rentBtn');
 const watchTitle = document.getElementById('watchTitle');
 const videoPlayer = document.getElementById('videoPlayer');
 let selectedMovie = null;
-
+// 7
+// J'ai filtré avec JavaScript, car on ne peut pas filtrer avec la recherche de TMDB directement
+// https://developer.themoviedb.org/reference/discover-movie
+// https://developer.themoviedb.org/reference/search-movie
 function applyFilters(movies)
 {
 	const lang = filterLangEl.value;
@@ -80,6 +83,7 @@ async function fetchMovies(page = 1)
 		{
 			movies = movies.concat(data.results);
 		}
+		// 7
 		movies = applyFilters(movies);
 		currentPage = page;
 		renderMovies();

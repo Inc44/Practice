@@ -25,6 +25,9 @@ body
 	width: 100%;
 	height: auto;
 	border-radius: 4px;
+	/* 4 */
+	aspect-ratio: 2 / 3;
+	object-fit: cover;
 }
 
 .movie-info
