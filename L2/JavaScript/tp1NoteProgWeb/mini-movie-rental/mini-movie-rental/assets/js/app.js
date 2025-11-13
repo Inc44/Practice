@@ -125,7 +125,7 @@ function createMovieCard(movie, rented)
 	}
 	else
 	{
-		img.src = '../../Ressources graphiques/Placeholder pour les vignettes.png';
+		img.src = 'Ressources graphiques/Placeholder pour les vignettes.png';
 	}
 	img.alt = `Affiche du film ${movie.title}`;
 	img.className = 'card-img-top movie-poster';
