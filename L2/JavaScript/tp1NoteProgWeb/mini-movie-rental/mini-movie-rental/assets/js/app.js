@@ -264,4 +264,14 @@ document.addEventListener('DOMContentLoaded', async () =>
 		});
 	// Initial fetch
 	await fetchMovies();
+	// 5
+	const filterToggleBtn = document.getElementById('filterToggleBtn');
+	const filters = document.getElementById('filters');
+	if (filterToggleBtn && filters)
+	{
+		filterToggleBtn.onclick = () =>
+		{
+			filters.classList.toggle('hide');
+		};
+	}
 });

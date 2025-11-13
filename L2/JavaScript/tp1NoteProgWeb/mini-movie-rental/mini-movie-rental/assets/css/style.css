@@ -37,3 +37,9 @@ body
 {
 	width: 100%;
 }
+
+/* 5 */
+.hide
+{
+	display: none;
+}
