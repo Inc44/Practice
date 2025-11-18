@@ -1,6 +1,6 @@
-package tp5CollectionsGenericite.partie1Collections.exercice1ManipulationListDeSetEtDeTreeSet;
+package tp5CollectionsGenericite.partie1Collections.exercice1aManipulationListDeSetEtDeTreeSet;
 
-import java.util.Comparator;
+// import java.util.Comparator;
 
 /**
  * A bank account has a balance that can be

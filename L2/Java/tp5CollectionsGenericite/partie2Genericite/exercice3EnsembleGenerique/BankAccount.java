@@ -27,13 +27,13 @@ public class BankAccount implements Comparable<BankAccount> {
 		this.balance = this.balance + amount;
 	}
 
-	public void withdrow(double amount) {
+	public void withdraw(double amount) {
 		this.balance = this.balance - amount;
 	}
 
 	public void transfer(BankAccount anOtherAccount, double amount) {
 		// this.balance = this.balance - amount;
-		this.withdrow(amount);
+		this.withdraw(amount);
 		// anOtherAccount.balance = anOtherAccount.balance + amount;
 		anOtherAccount.deposit(amount);
 	}

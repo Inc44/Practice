@@ -17,13 +17,20 @@ public class Ensemble implements Cloneable {
 		return this.elements.size();
 	}
 
-	public int getElement(int index) throws IndexOutOfBoundsException {
+	public int getElement(int i) throws IndexOutOfBoundsException {
 		// if (this.elements.size() < index)
 		//	return -1;
-		return this.elements.get(index);
+		return this.elements.get(i);
 	}
 
-	public Ensemble union(Ensemble e) throws CloneNotSupportedException {
+	@Override
+	public String toString() {
+		if (this.elements.isEmpty())
+			return "ensemble vide";
+		return this.elements.toString();
+	}
+
+	public Ensemble union(Ensemble e) { // throws CloneNotSupportedException {
 		Ensemble u = new Ensemble();
 
 		for (int elt : this.elements) {
@@ -48,8 +55,12 @@ public class Ensemble implements Cloneable {
 		return u;
 	}
 
-	public boolean contains(int elt) {
-		return this.elements.contains(elt);
+	public ArrayList<Integer> getElements() {
+		return this.elements;
+	}
+
+	public boolean contains(int i) {
+		return this.elements.contains(i);
 	}
 
 	/* (non-Javadoc)

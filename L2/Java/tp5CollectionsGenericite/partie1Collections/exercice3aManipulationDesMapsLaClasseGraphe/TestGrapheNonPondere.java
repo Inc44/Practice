@@ -1,7 +1,10 @@
-package tp5CollectionsGenericite.partie1Collections.exercice3ManipulationDesMapsLaClasseGraphe;
+package tp5CollectionsGenericite.partie1Collections.exercice3aManipulationDesMapsLaClasseGraphe;
+// import
+// tp5CollectionsGenericite.partie2Genericite.exercice4GrapheGenerique.GrapheNonPondereGenerique;
 
 public class TestGrapheNonPondere {
 	public static void main(String[] args) {
+		// GrapheNonPondereGenerique<String> gNP = new GrapheNonPondereGenerique<>();
 		GrapheNonPondere gNP = new GrapheNonPondere();
 
 		System.out.println(gNP);

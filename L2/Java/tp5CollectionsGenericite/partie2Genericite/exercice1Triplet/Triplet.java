@@ -1,30 +1,35 @@
 package tp5CollectionsGenericite.partie2Genericite.exercice1Triplet;
 
-public class Triplet<E> {
-	private E first;
-	private E second;
-	private E third;
+public class Triplet<T> {
+	private T premier;
+	private T deuxieme;
+	private T troisieme;
 
-	public Triplet(E first, E second, E third) {
-		this.first = first;
-		this.second = second;
-		this.third = third;
+	public Triplet(T p, T d, T t) {
+		this.premier = p;
+		this.deuxieme = d;
+		this.troisieme = t;
 	}
 
-	public E getFirst() {
-		return first;
+	public T getPremier() {
+		return premier;
 	}
 
-	public E getSecond() {
-		return second;
+	public T getDeuxieme() {
+		return deuxieme;
 	}
 
-	public E getThird() {
-		return third;
+	public T getTroisieme() {
+		return troisieme;
+	}
+
+	public void affiche() {
+		System.out.println(this);
 	}
 
 	@Override
 	public String toString() {
-		return "Triplet [first=" + first + ", second=" + second + ", third=" + third + "]";
+		return "Triplet [premier=" + premier + ", deuxieme=" + deuxieme + ", troisieme=" + troisieme
+			+ "]";
 	}
 }

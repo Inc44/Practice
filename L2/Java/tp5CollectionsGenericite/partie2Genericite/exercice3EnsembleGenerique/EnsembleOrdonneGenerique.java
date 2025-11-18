@@ -21,17 +21,17 @@ public class EnsembleOrdonneGenerique<E extends Comparable<E>> {
 		return this.elements.get(index);
 	}*/
 
-	public EnsembleOrdonneGenerique union(EnsembleOrdonneGenerique e)
+	public EnsembleOrdonneGenerique<E> union(EnsembleOrdonneGenerique<E> e)
 		throws CloneNotSupportedException {
-		EnsembleOrdonneGenerique u = new EnsembleOrdonneGenerique();
+		EnsembleOrdonneGenerique<E> u = new EnsembleOrdonneGenerique<>();
 		u.elements.addAll(this.elements);
 		u.elements.addAll(e.elements);
 
 		return u;
 	}
 
-	public EnsembleOrdonneGenerique intersection(EnsembleOrdonneGenerique e) {
-		EnsembleOrdonneGenerique u = new EnsembleOrdonneGenerique();
+	public EnsembleOrdonneGenerique<E> intersection(EnsembleOrdonneGenerique<E> e) {
+		EnsembleOrdonneGenerique<E> u = new EnsembleOrdonneGenerique<>();
 		for (E elt : this.elements) {
 			if (e.contains(elt))
 				u.ajoute(elt);
@@ -48,7 +48,7 @@ public class EnsembleOrdonneGenerique<E extends Comparable<E>> {
 	 */
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
-		EnsembleOrdonneGenerique u = new EnsembleOrdonneGenerique();
+		EnsembleOrdonneGenerique<E> u = new EnsembleOrdonneGenerique<>();
 		u.elements.addAll(this.elements);
 		return u;
 	}

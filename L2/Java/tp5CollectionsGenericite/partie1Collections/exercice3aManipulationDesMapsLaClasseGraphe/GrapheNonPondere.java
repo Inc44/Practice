@@ -1,4 +1,4 @@
-package tp5CollectionsGenericite.partie1Collections.exercice3ManipulationDesMapsLaClasseGraphe;
+package tp5CollectionsGenericite.partie1Collections.exercice3aManipulationDesMapsLaClasseGraphe;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package tp5CollectionsGenericite.partie1Collections.exercice3ManipulationDesMapsLaClasseGraphe;
+package tp5CollectionsGenericite.partie1Collections.exercice3bManipulationDesMapsLaClasseGraphe;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -26,6 +26,10 @@ public class GraphePondere {
 			sommetsArrivee.replace(arrivee, poids);
 		else
 			sommetsArrivee.put(arrivee, poids);
+	}
+
+	public void ajouterCheminSiAbsentMAJSiExistant(String depart, String arrivee, int distance) {
+		this.ajouterChemin(depart, arrivee, distance);
 	}
 
 	public int distance(String depart, String arrivee) {

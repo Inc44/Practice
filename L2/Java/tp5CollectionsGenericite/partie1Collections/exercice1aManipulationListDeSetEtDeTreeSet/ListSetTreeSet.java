@@ -1,4 +1,4 @@
-package tp5CollectionsGenericite.partie1Collections.exercice1ManipulationListDeSetEtDeTreeSet;
+package tp5CollectionsGenericite.partie1Collections.exercice1aManipulationListDeSetEtDeTreeSet;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,8 +14,8 @@ public class ListSetTreeSet {
 
 		System.out.print("Tirage : ");
 
-		for (int i = 0; i < 20; i++) {
-			int tirage = (int) (30 * Math.random());
+		for (int i = 0; i < 10; i++) {
+			int tirage = (int) (10 * Math.random());
 			System.out.print(tirage + ", ");
 			listInt.add(tirage);
 			setInt.add(tirage);

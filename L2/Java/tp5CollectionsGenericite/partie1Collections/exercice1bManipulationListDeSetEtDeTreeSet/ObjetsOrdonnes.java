@@ -1,6 +1,8 @@
-package tp5CollectionsGenericite.partie1Collections.exercice1ManipulationListDeSetEtDeTreeSet;
+package tp5CollectionsGenericite.partie1Collections.exercice1bManipulationListDeSetEtDeTreeSet;
 
 import java.util.TreeSet;
+
+import tp5CollectionsGenericite.partie1Collections.exercice1aManipulationListDeSetEtDeTreeSet.BankAccount;
 
 public class ObjetsOrdonnes {
 	public static void main(String[] args) {
