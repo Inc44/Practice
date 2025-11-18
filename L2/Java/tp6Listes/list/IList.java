@@ -2,7 +2,7 @@ package tp6Listes.list;
 
 import java.util.Iterator;
 
-public interface IList<T> {
+public interface IList<T> extends Iterable<T> {
 	boolean add(T elem);
 	void add(T elem, int index);
 	void clear();

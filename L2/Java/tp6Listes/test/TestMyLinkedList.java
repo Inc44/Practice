@@ -37,5 +37,13 @@ public class TestMyLinkedList {
 		while (it.hasNext()) {
 			System.out.print(it.next() + " ");
 		}
+
+		MyLinkedList<Integer> linkedList = new MyLinkedList<Integer>(42);
+		System.out.println(linkedList.size());
+		System.out.println(linkedList.isEmpty());
+		System.out.println(linkedList.get(0));
+		System.out.println(linkedList.set(420, 0));
+		linkedList.clear();
+		System.out.println(linkedList.equals(L));
 	}
 }
