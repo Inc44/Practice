@@ -45,5 +45,8 @@ public class TestMyLinkedList {
 		System.out.println(linkedList.set(420, 0));
 		linkedList.clear();
 		System.out.println(linkedList.equals(L));
+		System.out.println(linkedList.inverse());
+		System.out.println(linkedList.estPalindrome());
+		System.out.println(linkedList.estCroissante());
 	}
 }

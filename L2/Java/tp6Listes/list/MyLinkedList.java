@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 
 public class MyLinkedList<T> implements IList<T> {
 	private Node<T> head;
+	private Node<T> tail;
 	private int size;
 
 	/**
@@ -14,6 +15,7 @@ public class MyLinkedList<T> implements IList<T> {
 	 */
 	public MyLinkedList() {
 		head = null;
+		tail = null;
 		size = 0;
 	}
 
@@ -22,6 +24,7 @@ public class MyLinkedList<T> implements IList<T> {
 	 */
 	public MyLinkedList(T value) {
 		head = new Node<T>(value);
+		tail = head;
 		size = 1;
 	}
 
@@ -33,12 +36,10 @@ public class MyLinkedList<T> implements IList<T> {
 		Node<T> tmp = new Node<T>(elem);
 		if (head == null) {
 			head = tmp;
+			tail = tmp;
 		} else {
-			Node<T> p = head;
-			while (p.getNext() != null) {
-				p = p.getNext();
-			}
-			p.setNext(tmp);
+			tail.setNext(tmp);
+			tail = tmp;
 		}
 		size += 1;
 		return true; // (as specified by Collection.add(E))
@@ -56,20 +57,27 @@ public class MyLinkedList<T> implements IList<T> {
 		} else if (isEmpty() || index == 0) {
 			tmp.setNext(head);
 			head = tmp;
+			if (size == 0) {
+				tail = tmp;
+			}
 			size++;
 		} else {
-			int i = 0;
+			if (index == size) {
+				add(elem);
+			} else {
+				int i = 0;
 
-			Node<T> p = head;
+				Node<T> p = head;
 
-			while (p != null && i < index - 1) {
-				// p != null should be unused
-				p = p.getNext();
-				i++;
+				while (p != null && i < index - 1) {
+					// p != null should be unused
+					p = p.getNext();
+					i++;
+				}
+				tmp.setNext(p.getNext());
+				p.setNext(tmp);
+				size++;
 			}
-			tmp.setNext(p.getNext());
-			p.setNext(tmp);
-			size++;
 		}
 	}
 
@@ -79,6 +87,7 @@ public class MyLinkedList<T> implements IList<T> {
 	@Override
 	public void clear() {
 		head = null;
+		tail = null;
 		size = 0;
 	}
 
@@ -192,6 +201,9 @@ public class MyLinkedList<T> implements IList<T> {
 			T tmp = head.getValue();
 			head = head.getNext();
 			size--;
+			if (size == 0) {
+				tail = null;
+			}
 			return tmp;
 		} else {
 			int i = 0;
@@ -204,6 +216,9 @@ public class MyLinkedList<T> implements IList<T> {
 			// because of Exception at the beginning
 			T tmp = p.getNext().getValue();
 			p.setNext(p.getNext().getNext());
+			if (index == size - 1) {
+				tail = p;
+			}
 			size--;
 			return tmp;
 			//}
@@ -251,6 +266,35 @@ public class MyLinkedList<T> implements IList<T> {
 		}
 		sb.append(")");
 		return sb.toString();
+	}
+
+	public MyLinkedList<T> inverse() {
+		MyLinkedList<T> reversedLinkedList = new MyLinkedList<T>();
+		Node<T> currentNode = head;
+		while (currentNode != null) {
+			reversedLinkedList.add(currentNode.getValue(), 0);
+			currentNode = currentNode.getNext();
+		}
+		return reversedLinkedList;
+	}
+	public boolean estPalindrome() {
+		MyLinkedList<T> reversedLinkedList = inverse();
+		return this.equals(reversedLinkedList);
+	}
+	@SuppressWarnings("unchecked")
+	public boolean estCroissante() {
+		if (head == null || head.getNext() == null) {
+			return true;
+		}
+		Node<T> currentNode = head;
+		while (currentNode.getNext() != null) {
+			Comparable<T> comparableCurrentNodeValue = (Comparable<T>) currentNode.getValue();
+			if (comparableCurrentNodeValue.compareTo(currentNode.getNext().getValue()) > 0) {
+				return false;
+			}
+			currentNode = currentNode.getNext();
+		}
+		return true;
 	}
 
 	/**
