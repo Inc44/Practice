@@ -6,9 +6,9 @@ import java.lang.UnsupportedOperationException;
 import java.util.NoSuchElementException;
 
 public class MyLinkedList<T> implements IList<T> {
-	private Node<T> head;
-	private Node<T> tail;
-	private int size;
+	protected Node<T> head;
+	protected Node<T> tail;
+	protected int size;
 
 	/**
 	 * Build an empty linked list
@@ -258,9 +258,9 @@ public class MyLinkedList<T> implements IList<T> {
 	public String toString() {
 		StringBuffer sb = new StringBuffer("(");
 		Node<T> p = head;
-		while (p != null) {
+		for (int i = 0; p != null && i < size; i++) {
 			sb.append(p.getValue().toString());
-			if (p.getNext() != null)
+			if (p.getNext() != null && i < size - 1)
 				sb.append(", ");
 			p = p.getNext();
 		}
@@ -269,7 +269,7 @@ public class MyLinkedList<T> implements IList<T> {
 	}
 
 	public MyLinkedList<T> inverse() {
-		MyLinkedList<T> reversedLinkedList = new MyLinkedList<T>();
+		MyLinkedList<T> reversedLinkedList = new MyLinkedList<>();
 		Node<T> currentNode = head;
 		while (currentNode != null) {
 			reversedLinkedList.add(currentNode.getValue(), 0);

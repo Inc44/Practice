@@ -3,9 +3,13 @@ package tp6Listes.test;
 import java.util.Iterator;
 import java.util.Random;
 
+// import tp6Listes.list.MyCircularList;
+// import tp6Listes.list.MyDoubleList;
 import tp6Listes.list.MyLinkedList;
 
 public class TestMyLinkedList {
+	// private static void generate(MyCircularList<Integer> L, Random rd, int nbElem, int range) {
+	// private static void generate(MyDoubleList<Integer> L, Random rd, int nbElem, int range) {
 	private static void generate(MyLinkedList<Integer> L, Random rd, int nbElem, int range) {
 		for (int i = 0; i < nbElem; i++) {
 			L.add(rd.nextInt(range));
@@ -16,6 +20,8 @@ public class TestMyLinkedList {
 		Random r = new Random();
 		r.setSeed(42);
 
+		// MyCircularList<Integer> L = new MyCircularList<Integer>();
+		// MyDoubleList<Integer> L = new MyDoubleList<Integer>();
 		MyLinkedList<Integer> L = new MyLinkedList<Integer>();
 		generate(L, r, 10, 100);
 		System.out.println(L);
@@ -38,6 +44,8 @@ public class TestMyLinkedList {
 			System.out.print(it.next() + " ");
 		}
 
+		// MyCircularList<Integer> linkedList = new MyCircularList<Integer>(42);
+		// MyDoubleList<Integer> linkedList = new MyDoubleList<Integer>(42);
 		MyLinkedList<Integer> linkedList = new MyLinkedList<Integer>(42);
 		System.out.println(linkedList.size());
 		System.out.println(linkedList.isEmpty());
