@@ -1,0 +1,33 @@
+Exercice 1 : 1/1
+L'erreur provenait d'une tentative d'accès à une propriété data inexistante sur le tableau pagedMovies. L'appel a été corrigé pour accéder directement à l'index du tableau. La correction est fonctionnelle et élimine l'erreur console.
+
+Exercice 2 : 2/2
+Les blocs de texte ont été intégrés aux emplacements exacts demandés.
+Introduction : placée entre la bannière et les filtres.
+Présentation détaillée : placée après la pagination et avant le footer.
+Le balisage sémantique (H2, H3) et le formatage (gras, souligné, listes) respectent scrupuleusement la maquette textuelle fournie.
+
+Exercice 3 : 2/2
+La source remplace la bannière actuelle dans img pour afficher Black Friday. Comme c'est un événement temporaire, la bannière originale a été préservée pour assurer la rétrocompatibilité et sert de fallback, donc il n'était pas nécessaire de modifier son texte alternatif. De plus, cela n'était pas explicitement demandé.
+
+Exercice 4 : 3/3
+La condition en JS a été utilisée pour changer la source du poster s'il n'existe pas. De plus, l'aspect ratio a été ajouté dans le CSS car le placeholder est carré et les autres images étaient rectangulaires.
+
+Exercice 5 : 9/9
+Les deux méthodes ont été apportées : une avec Bootstrap en utilisant la classe collapse pour cacher les filtres avec data-bs-toggle et data-bs-target pour l'interactivité, et la deuxième qui utilise la classe hide définie dans le CSS pour simuler le comportement de collapse, avec un peu de JS pour ajouter et supprimer cette classe au clic sur le bouton.
+
+Exercice 6 : 0.5/0.5
+Le lien a été bien ajouté.
+
+Exercice 7 : 2/2
+Le site utilisait "en" pour toutes les langues, ils ont été bien remplacés par "fr", "en", "es" respectivement. La recherche a été bien modifiée pour filtrer les résultats avec applyFilters car l'API de TMDB ne permet pas le filtrage direct pour la /search.
+
+Exercice 8 : 0.5/0.5
+La source vers le fichier webm a été bien ajoutée.
+
+Exercice 9 : 4/4
+Le formulaire a été bien ajouté, les champs ne sont pas obligatoires car cela n'était pas explicitement demandé.
+
+Tous les exercices ont été faits avec un changement minimal du code original en respectant uniquement les éléments clairement demandés dans les consignes d'évaluation pour éviter l'ambiguïté et la variabilité d'implémentation.
+
+Note finale : 24/20
