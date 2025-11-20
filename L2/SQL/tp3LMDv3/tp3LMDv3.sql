@@ -231,3 +231,126 @@ GROUP BY
 	c.libelle,
 	MONTHNAME(dateCommande),
 	YEAR(dateCommande);
+-- 12
+SELECT
+	nom,
+	COUNT(commandeId),  -- 5 instead of 7 for La maison d'Asie
+	DENSE_RANK() OVER (
+		ORDER BY
+			COUNT(commandeId) DESC -- Otherwise, rank 5 instead of 4 for La maison d'Asie
+	)
+FROM
+	clients c
+	JOIN commandes co ON c.clientId = co.clientId
+GROUP BY
+	nom
+ORDER BY
+	COUNT(commandeId) DESC;
+-- 13
+SELECT
+	nom,
+	commandeId,
+	dateCommande,
+	ROW_NUMBER() OVER (
+		PARTITION BY c.clientId
+		ORDER BY
+			dateCommande
+	)
+FROM
+	clients c
+	JOIN commandes co ON c.clientId = co.clientId
+ORDER BY
+	nom,
+	dateCommande;
+-- 14
+SELECT
+	libelle,
+	c.commandeId,
+	dateCommande,
+	quantite,
+	SUM(quantite) OVER (
+		PARTITION BY p.produitId
+		ORDER BY
+			dateCommande,
+			c.commandeId
+	)
+FROM
+	produits p
+	JOIN detailscommandes d ON p.produitId = d.produitId
+	JOIN commandes c ON d.commandeId = c.commandeId
+ORDER BY
+	libelle,
+	c.commandeId;
+-- 15
+SELECT
+	nom,
+	commandeId,
+	dateCommande,
+	LAG(dateCommande, 1) OVER (
+		PARTITION BY c.clientId
+		ORDER BY
+			dateCommande
+	),
+	LEAD(dateCommande, 1) OVER (
+		PARTITION BY c.clientId
+		ORDER BY
+			dateCommande
+	),
+	DATEDIFF(
+		dateCommande,
+		LAG(dateCommande, 1) OVER (
+			PARTITION BY c.clientId
+			ORDER BY
+				dateCommande
+		)
+	)
+FROM
+	clients c
+	JOIN commandes co ON c.clientId = co.clientId
+ORDER BY
+	nom,
+	dateCommande;
+-- 16
+SELECT
+	*
+FROM
+	(
+		SELECT
+			c.libelle AS clibelle,
+			p.libelle AS plibelle,
+			SUM(quantite),
+			DENSE_RANK() OVER (
+				PARTITION BY c.libelle
+				ORDER BY
+					SUM(quantite) DESC
+			) AS rang
+		FROM
+			categories c
+			JOIN produits p ON c.categorieId = p.categorieId
+			JOIN detailscommandes d ON p.produitId = d.produitId
+		GROUP BY
+			c.libelle,
+			p.libelle
+	) AS classement
+WHERE
+	rang <= 3
+ORDER BY
+	clibelle,
+	rang;
+-- 17
+SELECT
+	DISTINCT nom,
+	FIRST_VALUE(dateCommande) OVER (
+		PARTITION BY c.clientId
+		ORDER BY
+			dateCommande ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+	),
+	LAST_VALUE(dateCommande) OVER (
+		PARTITION BY c.clientId
+		ORDER BY
+			dateCommande ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+	),
+	COUNT(commandeId) OVER (PARTITION BY c.clientId)
+FROM
+	clients c
+	JOIN commandes co ON c.clientId = co.clientId;
