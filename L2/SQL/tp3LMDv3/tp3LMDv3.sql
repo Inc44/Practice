@@ -71,9 +71,24 @@ FROM
 	AND c.nomContact = f.nomContact;
 -- 6
 SELECT
-	COUNT(DISTINCT clientId) AS "2025 Nombre de clients différents qui ont commandé",
-	COUNT(c.commandeId) AS "2025 Nombre total de commandes",
-	SUM(quantite * prix) AS "2025 Ventes totales"
+	'2025 Nombre de clients différents qui ont commandé' AS type,
+	COUNT(DISTINCT clientId) AS value
+FROM
+	commandes
+WHERE
+	YEAR(dateCommande) = 2025
+UNION
+SELECT
+	'2025 Nombre total de commandes' AS type,
+	COUNT(commandeId) AS value
+FROM
+	commandes
+WHERE
+	YEAR(dateCommande) = 2025
+UNION
+SELECT
+	'2025 Ventes totales' AS type,
+	SUM(quantite * prix) AS value
 FROM
 	commandes c
 	JOIN detailscommandes d ON c.commandeId = d.commandeId
@@ -147,7 +162,7 @@ WHERE
 SELECT
 	p.libelle,
 	prix,
-	c.libelle AS libelle,  -- 10 records instead of 26, without alias
+	c.libelle,
 	(
 		SELECT
 			AVG(prix)
