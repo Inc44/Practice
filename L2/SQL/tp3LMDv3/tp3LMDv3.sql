@@ -493,4 +493,32 @@ ORDER BY
 	annee DESC,
 	trimestre DESC;
 -- 23
--- TODO
+WITH stats AS (
+	SELECT
+		nom,
+		CASE
+			WHEN COUNT(co.commandeId) >= 10 THEN 'Or'
+			WHEN COUNT(co.commandeId) >= 5 THEN 'Argent'
+			ELSE 'Bronze'
+		END AS segment,
+		COUNT(co.commandeId) AS commandes,
+		SUM(quantite * prix) AS montant
+	FROM
+		clients c
+		JOIN commandes co ON c.clientId = co.clientId
+		JOIN detailscommandes d ON co.commandeId = d.commandeId
+		JOIN produits p ON d.produitId = p.produitId
+	GROUP BY
+		nom
+)
+SELECT
+	segment,
+	COUNT(*) AS nbClients,
+	AVG(commandes) AS nbMoyenCommandes,
+	AVG(montant) AS mtMoyenCommande
+FROM
+	stats
+GROUP BY
+	segment
+ORDER BY
+	nbMoyenCommandes DESC;
