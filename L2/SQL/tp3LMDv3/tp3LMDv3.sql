@@ -354,3 +354,143 @@ SELECT
 FROM
 	clients c
 	JOIN commandes co ON c.clientId = co.clientId;
+-- 18
+WITH chiffre_affaire AS (
+	SELECT
+		nom,
+		Pays,
+		SUM(quantite * prix) AS montant
+	FROM
+		clients c
+		JOIN commandes co ON c.clientId = co.clientId
+		JOIN detailscommandes d ON co.commandeId = d.commandeId
+		JOIN produits p ON d.produitId = p.produitId
+	GROUP BY
+		nom,
+		Pays
+)
+SELECT
+	nom,
+	Pays,
+	montant,
+	(
+		SELECT
+			AVG(montant)
+		FROM
+			chiffre_affaire
+	)
+FROM
+	chiffre_affaire
+WHERE
+	montant > (
+		SELECT
+			AVG(montant)
+		FROM
+			chiffre_affaire
+	);
+-- 19
+WITH tiers AS (
+	SELECT
+		nom,
+		pays
+	FROM
+		fournisseurs
+	UNION
+	SELECT
+		nom,
+		pays
+	FROM
+		clients
+)
+SELECT
+	pays,
+	COUNT(*)
+FROM
+	tiers
+GROUP BY
+	pays
+ORDER BY
+	pays;
+-- 20
+WITH moyenne AS (
+	SELECT
+		p.libelle AS plibelle,
+		prix,
+		c.libelle AS clibelle,
+		AVG(prix) OVER (PARTITION BY c.categorieId) AS moyen
+	FROM
+		produits p
+		JOIN categories c ON p.categorieId = c.categorieId
+)
+SELECT
+	plibelle,
+	prix,
+	clibelle,
+	moyen
+FROM
+	moyenne
+WHERE
+	prix > moyen;
+-- 21
+WITH stats AS (
+	SELECT
+		nom,
+		COUNT(commandeId) AS commandes,
+		MIN(dateCommande) AS premiere,
+		MAX(dateCommande) AS derniere,
+		DATEDIFF(MAX(dateCommande), MIN(dateCommande)) AS duree
+	FROM
+		clients c
+		JOIN commandes co ON c.clientId = co.clientId
+	GROUP BY
+		nom
+)
+SELECT
+	nom,
+	commandes,
+	premiere,
+	derniere,
+	duree
+FROM
+	stats
+WHERE
+	commandes > 5
+	AND duree >= 1095;
+-- 6 records instead of 8
+-- 22
+WITH ventes AS (
+	SELECT
+		YEAR(dateCommande) AS annee,
+		QUARTER(dateCommande) AS trimestre,
+		COUNT(DISTINCT c.commandeId) AS commandes,
+		SUM(quantite * prix) AS montant
+	FROM
+		commandes c
+		JOIN detailscommandes d ON c.commandeId = d.commandeId
+		JOIN produits p ON d.produitId = p.produitId
+	GROUP BY
+		YEAR(dateCommande),
+		QUARTER(dateCommande)
+)
+SELECT
+	annee,
+	trimestre,
+	commandes,
+	montant,
+	LAG(montant, 1) OVER (
+		ORDER BY
+			annee,
+			trimestre
+	) AS montant_precedent,
+	montant - LAG(montant, 1) OVER (
+		ORDER BY
+			annee,
+			trimestre
+	) AS difference
+FROM
+	ventes
+ORDER BY
+	annee DESC,
+	trimestre DESC;
+-- 23
+-- TODO
