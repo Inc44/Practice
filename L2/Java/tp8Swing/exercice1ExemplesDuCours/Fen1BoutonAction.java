@@ -1,7 +1,7 @@
 package tp8Swing.exercice1ExemplesDuCours;
 
-import javax.swing.*;
 import java.awt.event.*;
+import javax.swing.*;
 
 class Fen1BoutonAction extends JFrame implements ActionListener {
 	JButton monBouton;

@@ -3,15 +3,14 @@ package tp8Swing.exercice2;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class FenetreLitEntier extends JFrame implements ActionListener {
-	private JLabel text = new JLabel("Entrez un nombre");
-	private JTextField field = new JTextField(2);
+	private JLabel text = new JLabel("Entrez un nombre entier");
+	private JTextField field = new JTextField(15);
 	private String str;
 
 	public FenetreLitEntier(String s) {
@@ -25,6 +24,12 @@ public class FenetreLitEntier extends JFrame implements ActionListener {
 	}
 	public void actionPerformed(ActionEvent e) {
 		str = field.getText();
+		try {
+			Integer.parseInt(str);
+			str += " est un entier !";
+		} catch (NumberFormatException exception) {
+			str += " n'est pas un entier !";
+		}
 		dispose();
 		JOptionPane.showMessageDialog(null, str);
 	}

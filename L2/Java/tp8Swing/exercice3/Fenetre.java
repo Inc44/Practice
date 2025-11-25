@@ -1,4 +1,5 @@
 package tp8Swing.exercice3;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -6,8 +7,8 @@ import javax.swing.event.*;
 
 public class Fenetre extends JFrame // implements ActionListener
 {
-	private JButton boutonEncore = new JButton("Encore");
-	private JButton boutonStop = new JButton("Stop");
+	private JButton boutonEncore = new JButton("Encore ?");
+	private JButton boutonStop = new JButton("Stop ?");
 	private Fenetre fen;
 
 	public Fenetre(String s) {
@@ -26,7 +27,7 @@ public class Fenetre extends JFrame // implements ActionListener
 	/* si on implemente les listener dans la même classe
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == boutonEncore) {
-			fen = new Fenetre("Fenetre Exo 2");
+			fen = new Fenetre("Question");
 			fen.setVisible(true);
 		} else
 			dispose();
@@ -51,7 +52,7 @@ class CloseButtonListener implements ActionListener {
 class NewButtonListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Fenetre fen = new Fenetre("Fenetre Exo 2");
+		Fenetre fen = new Fenetre("Question");
 		fen.setVisible(true);
 	}
 }

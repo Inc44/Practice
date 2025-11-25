@@ -1,7 +1,7 @@
 package tp8Swing.exercice1ExemplesDuCours;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class Panneau extends JPanel {
 	public void paintComponent(Graphics g) {

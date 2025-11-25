@@ -1,12 +1,12 @@
 package tp8Swing.exercice4CalculatriceSolutionPartielleVueEnCours;
 
-import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class Calculatrice extends JFrame {
 	private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, bPlus, bMoins, bFois, bEgal, bSur, bRAZ;

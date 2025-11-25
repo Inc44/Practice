@@ -1,7 +1,7 @@
 package tp8Swing.exercice1ExemplesDuCours;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 class Fen2Bouton_b extends JFrame {
 	public Fen2Bouton_b() {
