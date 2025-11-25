@@ -1,0 +1,31 @@
+package tp8Swing.exercice2;
+
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+public class FenetreLitEntier extends JFrame implements ActionListener {
+	private JLabel text = new JLabel("Entrez un nombre");
+	private JTextField field = new JTextField(2);
+	private String str;
+
+	public FenetreLitEntier(String s) {
+		super(s);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(new FlowLayout());
+		getContentPane().add(text);
+		getContentPane().add(field);
+		field.addActionListener(this);
+		pack();
+	}
+	public void actionPerformed(ActionEvent e) {
+		str = field.getText();
+		dispose();
+		JOptionPane.showMessageDialog(null, str);
+	}
+}
