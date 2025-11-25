@@ -1,7 +1,7 @@
 package tp7.absencesHB;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+// import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;

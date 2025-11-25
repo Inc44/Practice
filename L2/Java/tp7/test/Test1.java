@@ -1,11 +1,12 @@
 package tp7.test;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+// import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
@@ -114,8 +115,8 @@ public class Test1 {
 		Statement st = null;
 		try {
 			st = cn.createStatement();
-			String sqlQuery = "INSERT INTO etudiant (nom, prenom, groupecode) VALUES ('MELON', "
-				+ "'Gilles', 'INFL2G1A')";
+			String sqlQuery = "INSERT INTO etudiant (nom, prenom, groupecode)"
+				+ "VALUES ('MELON', 'Gilles', 'INFL2G1A')";
 			int result = st.executeUpdate(sqlQuery); // utiliser executeUpdate
 			// quand on fait autre chose qu'un select (executeUpdate retourne un int du nombre de
 			// modifications)
@@ -132,9 +133,10 @@ public class Test1 {
 		Statement st = null;
 		try {
 			st = cn.createStatement();
-			String sqlQuery = "DELETE FROM etudiant WHERE nom LIKE 'MELON' AND prenom LIKE
-				'Gilles' "; int result = st.executeUpdate(sqlQuery); System.out.println("\n Nombre
-					de suppressions : "+result);
+			String sqlQuery =
+				"DELETE FROM etudiant WHERE nom LIKE 'MELON' AND prenom LIKE 'Gilles'";
+			int result = st.executeUpdate(sqlQuery);
+			System.out.println("\n Nombre de suppressions : " + result);
 
 		} catch (SQLException e) {
 			System.err.println("Erreur requête SQL");
@@ -161,10 +163,16 @@ public class Test1 {
 		// 6) e)
 		ResultSet rs = null;
 		try {
+			Scanner sc = new Scanner(System.in);
+			System.out.print("Entrez le nom (ex. : DIEUDONNE ou SENOUN) : ");
+			String nom = sc.nextLine();
+			System.out.print("Entrez le prenom (ex. : CLAIRE ou KARIM) : ");
+			String prenom = sc.nextLine();
+			sc.close();
 			String sqlQuery = "SELECT * FROM etudiant WHERE nom LIKE ? AND prenom LIKE ?";
 			PreparedStatement pstmt = cn.prepareStatement(sqlQuery);
-			pstmt.setString(1, "DIEUDONNE");
-			pstmt.setString(2, "CLAIRE");
+			pstmt.setString(1, nom);
+			pstmt.setString(2, prenom);
 			rs = pstmt.executeQuery();
 		} catch (SQLException e) {
 			System.err.println("Erreur requête SQL");
@@ -185,17 +193,34 @@ public class Test1 {
 		}
 		*/
 
+		/*
 		// 6) f)
+		Statement st = null;
+		try {
+			st = cn.createStatement();
+			String sqlQuery = "CREATE TABLE IF NOT EXISTS discipline ("
+				+ "dispilineId INT PRIMARY KEY,"
+				+ "libelle VARCHAR(100))";
+			st.executeUpdate(sqlQuery);
+		} catch (SQLException exception) {
+			exception.printStackTrace();
+		}
+		*/
+
+		// 6) g)
 		Statement st = null;
 		try {
 			cn.setAutoCommit(false);
 			Statement stmt = cn.createStatement();
 			stmt.addBatch("INSERT INTO discipline "
-				+ "VALUES(1, 'Informatique')");
+				+ "VALUES(1, 'Informatique')"
+				+ "ON DUPLICATE KEY UPDATE libelle='Informatique'");
 			stmt.addBatch("INSERT INTO discipline "
-				+ "VALUES(2, 'Biologie')");
+				+ "VALUES(2, 'Biologie')"
+				+ "ON DUPLICATE KEY UPDATE libelle='Biologie'");
 			stmt.addBatch("INSERT INTO discipline "
-				+ "VALUES(3, 'Mathématique')");
+				+ "VALUES(3, 'Mathématique')"
+				+ "ON DUPLICATE KEY UPDATE libelle='Mathématique'");
 			int[] updateCounts = stmt.executeBatch();
 			cn.commit();
 			cn.setAutoCommit(true);
