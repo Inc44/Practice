@@ -95,3 +95,148 @@ SELECT
 	nombre_articles(personneid)
 FROM
 	auteur;
+-- 4a
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER congres_date_insert BEFORE
+INSERT
+	ON congres FOR EACH ROW
+BEGIN
+IF NEW.datedebut > NEW.datefin THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END IF;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+-- 4b
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER congres_date_update BEFORE
+UPDATE
+	ON congres FOR EACH ROW
+BEGIN
+IF NEW.datedebut > NEW.datefin THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END IF;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+-- 4c
+INSERT INTO
+	congres (
+		domaineid,
+		batimentid,
+		nom,
+		datedebut,
+		datefin,
+		prixSejourHT
+	)
+VALUES
+	(
+		1,
+		10,
+		'ICPR',
+		'2025-12-31',
+		'2025-07-05',
+		750
+	);
+UPDATE
+	congres
+SET
+	datedebut = '2025-12-31'
+WHERE
+	congresid = 1;
+-- 4d
+ALTER TABLE
+	congres
+ADD
+	CONSTRAINT chk_congres_date CHECK (datedebut <= datefin);
+-- Standard declarative method, simpler and more optimized than triggers
+-- 5
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER session_date_insert BEFORE
+INSERT
+	ON session FOR EACH ROW
+BEGIN
+DECLARE
+v_datedebut DATE;
+DECLARE
+v_datefin DATE;
+DECLARE
+CONTINUE HANDLER FOR NOT FOUND
+BEGIN
+SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END;
+SELECT
+	datedebut,
+	datefin INTO v_datedebut,
+	v_datefin
+FROM
+	congres
+WHERE
+	congresid = NEW.congresid;
+IF DATE(NEW.datehrsession) NOT BETWEEN v_datedebut AND v_datefin THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END IF;
+END
+$$
+CREATE
+OR REPLACE TRIGGER session_date_update BEFORE
+UPDATE
+	ON session FOR EACH ROW
+BEGIN
+DECLARE
+v_datedebut DATE;
+DECLARE
+v_datefin DATE;
+DECLARE
+CONTINUE HANDLER FOR NOT FOUND
+BEGIN
+SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END;
+SELECT
+	datedebut,
+	datefin INTO v_datedebut,
+	v_datefin
+FROM
+	congres
+WHERE
+	congresid = NEW.congresid;
+IF DATE(NEW.datehrsession) NOT BETWEEN v_datedebut AND v_datefin THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END IF;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+INSERT INTO
+	session (
+		congresid,
+		articleid,
+		chairmanid,
+		datehrsession,
+		duree
+	)
+VALUES
+	(1, 1, 27, '2025-12-31 08:00:00', 60);
+UPDATE
+	session
+SET
+	datehrsession = '2025-12-31 08:00:00'
+WHERE
+	congresid = 1
+	AND articleid = 1;
