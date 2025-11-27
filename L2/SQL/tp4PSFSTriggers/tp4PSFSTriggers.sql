@@ -240,3 +240,333 @@ SET
 WHERE
 	congresid = 1
 	AND articleid = 1;
+-- 6a
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER participant_insert BEFORE
+INSERT
+	ON participant FOR EACH ROW
+BEGIN
+INSERT INTO
+	personne (nom, prenom, email)
+VALUES
+	(NEW.nom, NEW.prenom, NEW.email);
+SET
+	NEW.personneid = LAST_INSERT_ID();
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+-- 6b
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER participant_update BEFORE
+UPDATE
+	ON participant FOR EACH ROW
+BEGIN
+UPDATE
+	personne
+SET
+	nom = NEW.nom,
+	prenom = NEW.prenom,
+	email = NEW.email
+WHERE
+	personneid = OLD.personneid;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+-- 6c
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER participant_delete
+AFTER
+	DELETE ON participant FOR EACH ROW
+BEGIN
+DELETE FROM
+	personne
+WHERE
+	personneid = OLD.personneid;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+-- 6d
+INSERT INTO
+	participant (
+		villeid,
+		noemployeur,
+		adresse,
+		nom,
+		prenom,
+		email
+	)
+VALUES
+	(
+		14522,
+		1,
+		'17 bd heurteloup',
+		'DUPONT',
+		'Pierre',
+		'pierre.dupont@test.fr'
+	);
+SELECT
+	*
+FROM
+	personne
+WHERE
+	email = 'pierre.dupont@test.fr';
+UPDATE
+	participant
+SET
+	nom = 'DURAND'
+WHERE
+	email = 'pierre.dupont@test.fr';
+SELECT
+	*
+FROM
+	personne
+WHERE
+	email = 'pierre.dupont@test.fr';
+DELETE FROM
+	participant
+WHERE
+	email = 'pierre.dupont@test.fr';
+SELECT
+	*
+FROM
+	personne
+WHERE
+	email = 'pierre.dupont@test.fr';
+-- 7a
+ALTER TABLE
+	auteur
+ADD
+	nbArt INT(11) NOT NULL DEFAULT 0;
+-- 7b
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER rediger_insert
+AFTER
+INSERT
+	ON rediger FOR EACH ROW
+BEGIN
+UPDATE
+	auteur
+SET
+	nbArt = nbArt + 1
+WHERE
+	personneid = NEW.auteurid;
+END
+$$
+CREATE
+OR REPLACE TRIGGER rediger_update
+AFTER
+UPDATE
+	ON rediger FOR EACH ROW
+BEGIN
+IF OLD.auteurid != NEW.auteurid THEN
+UPDATE
+	auteur
+SET
+	nbArt = nbArt - 1
+WHERE
+	personneid = OLD.auteurid;
+UPDATE
+	auteur
+SET
+	nbArt = nbArt + 1
+WHERE
+	personneid = NEW.auteurid;
+END IF;
+END
+$$
+CREATE
+OR REPLACE TRIGGER rediger_delete
+AFTER
+	DELETE ON rediger FOR EACH ROW
+BEGIN
+UPDATE
+	auteur
+SET
+	nbArt = nbArt - 1
+WHERE
+	personneid = OLD.auteurid;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+-- 7c
+UPDATE
+	auteur
+SET
+	nbArt = (
+		SELECT
+			COUNT(*)
+		FROM
+			rediger
+		WHERE
+			auteurid = personneid
+	);
+-- 8a
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER presenter_insert BEFORE
+INSERT
+	ON presenter FOR EACH ROW
+BEGIN
+DECLARE
+v_count INT;
+SELECT
+	COUNT(*) INTO v_count
+FROM
+	assister
+WHERE
+	participantid = NEW.participantid
+	AND nosession = NEW.nosession;
+IF v_count = 0 THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END IF;
+END
+$$
+CREATE
+OR REPLACE TRIGGER presenter_update BEFORE
+UPDATE
+	ON presenter FOR EACH ROW
+BEGIN
+DECLARE
+v_count INT;
+SELECT
+	COUNT(*) INTO v_count
+FROM
+	assister
+WHERE
+	participantid = NEW.participantid
+	AND nosession = NEW.nosession;
+IF v_count = 0 THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END IF;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+INSERT INTO
+	presenter (participantid, nosession)
+VALUES
+	(2, 1);
+-- 8b
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER assister_delete BEFORE DELETE ON assister FOR EACH ROW
+BEGIN
+DECLARE
+v_count INT;
+SELECT
+	COUNT(*) INTO v_count
+FROM
+	presenter
+WHERE
+	participantid = OLD.participantid
+	AND nosession = OLD.nosession;
+IF v_count > 0 THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END IF;
+END
+$$
+CREATE
+OR REPLACE TRIGGER assister_update BEFORE
+UPDATE
+	ON assister FOR EACH ROW
+BEGIN
+DECLARE
+v_count INT;
+SELECT
+	COUNT(*) INTO v_count
+FROM
+	presenter
+WHERE
+	participantid = OLD.participantid
+	AND nosession = OLD.nosession;
+IF v_count > 0 THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END IF;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+DELETE FROM
+	assister
+WHERE
+	participantid = 1
+	AND nosession = 3;
+UPDATE
+	assister
+SET
+	nosession = 4
+WHERE
+	participantid = 1
+	AND nosession = 3;
+-- 9
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER session_insert BEFORE
+INSERT
+	ON session FOR EACH ROW
+BEGIN
+IF NEW.chairmanid IS NOT NULL THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END IF;
+END
+$$
+CREATE
+OR REPLACE TRIGGER session_update BEFORE
+UPDATE
+	ON session FOR EACH ROW
+BEGIN
+DECLARE
+v_count INT;
+IF NEW.chairmanid IS NOT NULL THEN
+SELECT
+	COUNT(*) INTO v_count
+FROM
+	presenter
+WHERE
+	participantid = NEW.chairmanid
+	AND nosession = NEW.nosession;
+IF v_count = 0 THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END IF;
+END IF;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+INSERT INTO
+	session (
+		congresid,
+		articleid,
+		chairmanid,
+		datehrsession,
+		duree
+	)
+VALUES
+	(1, 1, 27, '2025-07-01 08:00:00', 60);
+UPDATE
+	session
+SET
+	chairmanid = 27
+WHERE
+	nosession = 10;
