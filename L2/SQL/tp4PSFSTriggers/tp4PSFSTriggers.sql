@@ -570,3 +570,108 @@ SET
 	chairmanid = 27
 WHERE
 	nosession = 10;
+-- 10a
+DELIMITER
+$$
+CREATE
+OR REPLACE PROCEDURE programme_congres(IN p_congresid INT)
+BEGIN
+DECLARE
+v_count INT;
+SELECT
+	COUNT(*) INTO v_count
+FROM
+	congres
+WHERE
+	congresid = p_congresid;
+IF v_count = 0 THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+ELSE
+SELECT
+	(
+		SELECT
+			COUNT(*)
+		FROM
+			session
+		WHERE
+			congresid = p_congresid
+	),
+	nosession,
+	datehrsession,
+	duree,
+	titre,
+	nom,
+	prenom
+FROM
+	session s
+	JOIN article a ON s.articleid = a.articleid
+	LEFT JOIN participant ON chairmanid = personneid
+WHERE
+	congresid = p_congresid
+ORDER BY
+	datehrsession;
+END IF;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+-- 10b
+CALL programme_congres(1);
+-- 11a
+DELIMITER
+$$
+CREATE
+OR REPLACE FUNCTION nombre_sessions(p_congresid INT) RETURNS INT
+BEGIN
+DECLARE
+v_count INT;
+SELECT
+	COUNT(*) INTO v_count
+FROM
+	session
+WHERE
+	congresid = p_congresid;
+RETURN v_count;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+-- 11b
+SELECT
+	congresid,
+	nombre_sessions(congresid)
+FROM
+	congres
+WHERE
+	YEAR(datedebut) = 2025
+	OR YEAR(datefin) = 2025;
+-- 12a
+DELIMITER
+$$
+CREATE
+OR REPLACE FUNCTION personne_identite(p_personneid INT) RETURNS VARCHAR(161)
+BEGIN
+DECLARE
+v_identite VARCHAR(161);
+SELECT
+	CONCAT(UPPER(nom), ' ', prenom) INTO v_identite
+FROM
+	personne
+WHERE
+	personneid = p_personneid;
+RETURN v_identite;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+-- 12b
+SELECT
+	DISTINCT personne_identite(personneid)
+FROM
+	participant
+	JOIN assister a ON personneid = participantid
+	JOIN session s ON a.nosession = s.nosession
+	JOIN congres c ON s.congresid = c.congresid
+WHERE
+	c.nom = 'ICPR';
