@@ -675,3 +675,162 @@ FROM
 	JOIN congres c ON s.congresid = c.congresid
 WHERE
 	c.nom = 'ICPR';
+-- 13a
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER auteur_insert BEFORE
+INSERT
+	ON auteur FOR EACH ROW
+BEGIN
+INSERT INTO
+	personne (nom, prenom, email)
+VALUES
+	(NEW.nom, NEW.prenom, NEW.email);
+SET
+	NEW.personneid = LAST_INSERT_ID();
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+INSERT INTO
+	auteur (telephone, nom, prenom, email)
+VALUES
+	(
+		'1425789124',
+		'AZERTY',
+		'Stephane',
+		'stephane.qwerty@univ-tours.fr'
+	);
+SELECT
+	*
+FROM
+	personne
+WHERE
+	email = 'stephane.qwerty@univ-tours.fr';
+-- 13b
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER auteur_update
+AFTER
+UPDATE
+	ON auteur FOR EACH ROW
+BEGIN
+UPDATE
+	personne
+SET
+	nom = NEW.nom,
+	prenom = NEW.prenom,
+	email = NEW.email
+WHERE
+	personneid = NEW.personneid;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+UPDATE
+	auteur
+SET
+	nom = 'QWERTY'
+WHERE
+	email = 'stephane.qwerty@univ-tours.fr';
+SELECT
+	*
+FROM
+	personne
+WHERE
+	email = 'stephane.qwerty@univ-tours.fr';
+-- 13c
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER auteur_delete
+AFTER
+	DELETE ON auteur FOR EACH ROW
+BEGIN
+DELETE FROM
+	personne
+WHERE
+	personneid = OLD.personneid;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+DELETE FROM
+	auteur
+WHERE
+	email = 'stephane.qwerty@univ-tours.fr';
+SELECT
+	*
+FROM
+	personne
+WHERE
+	email = 'stephane.qwerty@univ-tours.fr';
+-- 14
+CREATE TABLE IF NOT EXISTS historisation (
+	articleid INT(11),
+	themeid INT(11),
+	typeid INT(11),
+	titre VARCHAR(100),
+	contenu TEXT,
+	nbsignes INT(11),
+	personneid INT(11),
+	telephone VARCHAR(20),
+	nom VARCHAR(80),
+	prenom VARCHAR(80),
+	email VARCHAR(255),
+	datearchivage DATETIME
+);
+DELIMITER
+$$
+CREATE
+OR REPLACE TRIGGER article_delete BEFORE DELETE ON article FOR EACH ROW
+BEGIN
+INSERT INTO
+	historisation (
+		articleid,
+		themeid,
+		typeid,
+		titre,
+		contenu,
+		nbsignes,
+		personneid,
+		telephone,
+		nom,
+		prenom,
+		email,
+		datearchivage
+	)
+SELECT
+	OLD.articleid,
+	OLD.themeid,
+	OLD.typeid,
+	OLD.titre,
+	OLD.contenu,
+	OLD.nbsignes,
+	personneid,
+	telephone,
+	nom,
+	prenom,
+	email,
+	NOW()
+FROM
+	auteur
+	JOIN rediger ON personneid = auteurid
+WHERE
+	articleid = OLD.articleid;
+END
+$$
+DELIMITER;
+-- ` ;` instead of `;`
+DELETE FROM
+	article
+WHERE
+	articleid = 1;
+SELECT
+	*
+FROM
+	historisation
+WHERE
+	articleid = 1;
