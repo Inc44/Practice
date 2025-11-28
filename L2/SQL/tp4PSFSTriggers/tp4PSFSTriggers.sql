@@ -787,6 +787,24 @@ $$
 CREATE
 OR REPLACE TRIGGER article_delete BEFORE DELETE ON article FOR EACH ROW
 BEGIN
+DECLARE
+done INT DEFAULT FALSE;
+DECLARE
+v_auteurid INT;
+DECLARE
+v_count INT;
+DECLARE
+cur_auteurs CURSOR FOR
+SELECT
+	auteurid
+FROM
+	rediger
+WHERE
+	articleid = OLD.articleid;
+DECLARE
+CONTINUE HANDLER FOR NOT FOUND
+SET
+	done = TRUE;
 INSERT INTO
 	historisation (
 		articleid,
@@ -820,6 +838,55 @@ FROM
 	JOIN rediger ON personneid = auteurid
 WHERE
 	articleid = OLD.articleid;
+DELETE FROM
+	assister
+WHERE
+	nosession IN (
+		SELECT
+			nosession
+		FROM
+			session
+		WHERE
+			articleid = OLD.articleid
+	);
+DELETE FROM
+	presenter
+WHERE
+	nosession IN (
+		SELECT
+			nosession
+		FROM
+			session
+		WHERE
+			articleid = OLD.articleid
+	);
+DELETE FROM
+	session
+WHERE
+	articleid = OLD.articleid;
+OPEN cur_auteurs;
+auteur_loop: LOOP FETCH cur_auteurs INTO v_auteurid;
+IF done THEN LEAVE auteur_loop;
+END IF;
+DELETE FROM
+	rediger
+WHERE
+	articleid = OLD.articleid
+	AND auteurid = v_auteurid;
+SELECT
+	COUNT(*) INTO v_count
+FROM
+	rediger
+WHERE
+	auteurid = v_auteurid;
+IF v_count = 0 THEN
+DELETE FROM
+	auteur
+WHERE
+	personneid = v_auteurid;
+END IF;
+END LOOP;
+CLOSE cur_auteurs;
 END
 $$
 DELIMITER;
@@ -827,10 +894,10 @@ DELIMITER;
 DELETE FROM
 	article
 WHERE
-	articleid = 1;
+	articleid = 7;
 SELECT
 	*
 FROM
 	historisation
 WHERE
-	articleid = 1;
+	articleid = 7;
