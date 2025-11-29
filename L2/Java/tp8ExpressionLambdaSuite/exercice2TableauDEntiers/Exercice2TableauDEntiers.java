@@ -1,8 +1,11 @@
 package tp8ExpressionLambdaSuite.exercice2TableauDEntiers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+// TP10 Expressions lambda et API Stream (Suite)
 public class Exercice2TableauDEntiers {
 	// TP8 Expressions lambda et API Stream (Suite)
 
@@ -24,12 +27,13 @@ public class Exercice2TableauDEntiers {
 			.limit(5)
 			.map(i -> i * i)
 			.forEach(System.out::println);
+		System.out.println("---Q2---");
 
 		// -- A partir d'un tableau d'entiers
 		// on cree un Stream a partir du tableau
 		// on map (transforme) les entiers du tableau
 		// avec un tableau qui contient l'entier-1
-		// comme 1ere valeur et l'entier comme 2e valeur
+		// comme 1ere vli.ur et l'entier comme 2e vli.ur
 		// puis pour chaque tableau retourne
 		// on affiche ce tableau
 		// grace a Arrays.toString qui transforme un tableau
@@ -41,5 +45,26 @@ public class Exercice2TableauDEntiers {
 				return (t);
 			})
 			.forEach(t -> System.out.println(Arrays.toString(t)));
+
+		// ou a partir d'un arrayList
+		ArrayList<Integer> li = new ArrayList<Integer>();
+		li.add(1);
+		li.add(5);
+		li.add(3);
+		li.add(2);
+		li.add(7);
+		li.add(6);
+		li.add(3);
+		li.add(4);
+		li.add(8);
+		li.add(10);
+		li.add(2);
+		li.add(1);
+		li.add(6);
+		System.out.println("-----");
+		li.stream()
+			.map(i -> new TupleInt(i - 1, i))
+			.collect(Collectors.toList())
+			.forEach(e -> System.out.println(e));
 	}
 }

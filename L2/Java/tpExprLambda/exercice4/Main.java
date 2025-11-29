@@ -6,9 +6,7 @@ public class Main {
 
 		etudiant.ajouteNote(17);
 		etudiant.ajouteNote(20);
-
 		System.out.println(etudiant.moyenne());
-
 		etudiant.ajouteNote(19.5);
 		System.out.println(etudiant.moyenne());
 	}

@@ -5,12 +5,9 @@ import java.util.stream.Collectors;
 import java.util.List;
 import java.util.Map;
 
+// TP10 Expressions lambda et API Stream (Suite)
 public class Exercice3ChaineDeCaracteres {
-	// TP8 Expressions lambda et API Stream (Suite)
-
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 		// on cree un Stream a partir du tableau
 		// on map (transforme) chaque entier (= element du tablea)
 		// en une chaine i+entier ou p+entier
@@ -53,5 +50,24 @@ public class Exercice3ChaineDeCaracteres {
 		Map<String, List<String>> mapS =
 			Stream.of(tc2).collect(Collectors.groupingBy(s -> s.substring(0, 1)));
 		System.out.println(mapS);
+
+		// Bilan
+		//--------
+		// Arrays.stream(t) transforme un tableau[] en stream -> retourne un Stream<Integer>
+		// le tableau t doit etre un tableau d'objet (Integer et non int, Double et non double...)
+		// si dans le tableau on a un sous tableau, c'est vu comme un objet donc OK
+		// ou Stream.of(t) -> idem
+		// MAIS fonctionne avec les types primitifs int par ex (et pas seulement Integer)
+
+		// monArrayList.stream() transforme un ArrayList (valable pour les collections) en stream
+
+		// map() transforme un element en un (autre) element
+		// par ex un Integer en int
+		// flatMap() transforme un element en un flux/stream de 0, un ou plusieurs elements
+
+		// collect() rassemble les elements d'un flux/stream dans une collection (List, Set...)
+
+		// collect(Collectors.groupingBy(elementcle)
+		// collect(Collectors.toMap(...)) dans un Map (HashMap) a definir dans ...
 	}
 }
