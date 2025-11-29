@@ -1,4 +1,4 @@
-package tp1JavaFX.exercice3;
+package tpJavaFXSuite.exercice2;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +13,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		Converter converter = new Converter();
 		FXMLLoader mainWindowLoader = new FXMLLoader(getClass().getResource("mainWindow.fxml"));
-		mainWindowLoader.setController(new MainWindow(converter, primaryStage));
+		mainWindowLoader.setController(new MainWindow(converter));
 		Scene scene = new Scene(mainWindowLoader.load());
 		primaryStage.setScene(scene);
 		primaryStage.show();

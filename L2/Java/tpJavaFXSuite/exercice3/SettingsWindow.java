@@ -1,4 +1,4 @@
-package tp1JavaFX.exercice3;
+package tpJavaFXSuite.exercice3;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

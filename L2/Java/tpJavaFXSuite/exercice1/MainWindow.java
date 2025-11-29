@@ -1,4 +1,4 @@
-package tp1JavaFX.exercice1;
+package tpJavaFXSuite.exercice1;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

@@ -1,4 +1,4 @@
-package tp1JavaFX.exercice2;
+package tpJavaFXSuite.exercice2;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

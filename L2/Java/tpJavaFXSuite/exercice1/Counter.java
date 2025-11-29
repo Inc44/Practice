@@ -1,4 +1,4 @@
-package tp1JavaFX.exercice1;
+package tpJavaFXSuite.exercice1;
 
 public class Counter {
 	private int i = 0;

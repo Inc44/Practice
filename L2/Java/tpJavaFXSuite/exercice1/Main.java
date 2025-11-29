@@ -1,4 +1,4 @@
-package tp1JavaFX.exercice1;
+package tpJavaFXSuite.exercice1;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

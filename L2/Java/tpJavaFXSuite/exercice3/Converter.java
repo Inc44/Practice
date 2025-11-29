@@ -1,4 +1,4 @@
-package tp1JavaFX.exercice3;
+package tpJavaFXSuite.exercice3;
 
 public class Converter {
 	private double rate = 120.2;
