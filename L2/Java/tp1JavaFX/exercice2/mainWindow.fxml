@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="4" vgap="4" prefHeight="64.0" prefWidth="185.0">
+	<TextField fx:id="euroField" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+	<Label text="EUR" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+	<TextField fx:id="yenField" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+	<Label text="JPY" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+</GridPane>

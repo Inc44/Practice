@@ -8,6 +8,7 @@ public class MainWindow {
 	private Counter counter;
 	@FXML private Button btnDecrement;
 	@FXML private Button btnIncrement;
+	@FXML private Button btnReset;
 	@FXML private Label label1;
 
 	MainWindow(Counter counter) {
@@ -19,5 +20,6 @@ public class MainWindow {
 		label1.setText(String.valueOf(counter.getValue()));
 		btnDecrement.setOnAction(ev -> label1.setText(String.valueOf(counter.dec())));
 		btnIncrement.setOnAction(ev -> label1.setText(String.valueOf(counter.inc())));
+		btnReset.setOnAction(ev -> label1.setText(String.valueOf(counter.reset())));
 	}
 }

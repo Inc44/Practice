@@ -11,4 +11,8 @@ public class Counter {
 	public int inc() {
 		return ++i;
 	}
+	public int reset() {
+		i = 0;
+		return i;
+	}
 }
