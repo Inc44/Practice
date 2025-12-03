@@ -4,23 +4,69 @@ $$
 CREATE
 OR REPLACE PROCEDURE inscrire_participant(
 	IN p_congresid INT,
-	IN p_participantid INT
+	IN p_participantid INT,
+	IN p_dateinscription DATE
 )
 BEGIN
 DECLARE
 v_count INT;
 DECLARE
 v_id INT;
+DECLARE
+v_date DATE;
+SET
+	v_date = IFNULL(p_dateinscription, CURDATE());
+SELECT
+	COUNT(*) INTO v_count
+FROM
+	congres
+WHERE
+	congresid = p_congresid;
+IF v_count = 0 THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END IF;
+SELECT
+	COUNT(*) INTO v_count
+FROM
+	participant
+WHERE
+	personneid = p_participantid;
+IF v_count = 0 THEN SIGNAL SQLSTATE '45000'
+SET
+	MESSAGE_TEXT = 'Erreur';
+END IF;
 SELECT
 	COUNT(*) INTO v_count
 FROM
 	inscription
 WHERE
 	congresid = p_congresid
-	AND participantid = p_participantid;
+	AND participantid = p_participantid
+	AND etat = 'VALIDE';
 IF v_count > 0 THEN SIGNAL SQLSTATE '45000'
 SET
 	MESSAGE_TEXT = 'Erreur';
+END IF;
+SELECT
+	COUNT(*) INTO v_count
+FROM
+	inscription
+WHERE
+	congresid = p_congresid
+	AND participantid = p_participantid
+	AND etat = 'ANNULE';
+IF v_count > 0 THEN
+UPDATE
+	inscription
+SET
+	dateinscription = v_date,
+	etat = 'VALIDE'
+WHERE
+	congresid = p_congresid
+	AND participantid = p_participantid;
+SELECT
+	CONCAT('Modification ', p_participantid) AS message;
 ELSE
 SELECT
 	IFNULL(MAX(inscriptionid), 0) + 1 INTO v_id -- inscriptionid is not AUTO_INCREMENT
@@ -41,7 +87,7 @@ VALUES
 		p_congresid,
 		v_id,
 		p_participantid,
-		CURDATE(),
+		v_date,
 		'VALIDE'
 	);
 SELECT
@@ -52,9 +98,17 @@ $$
 DELIMITER;
 -- ` ;` instead of `;`
 -- 2b
-CALL inscrire_participant(2, 2);
-CALL inscrire_participant(2, 2);
-CALL inscrire_participant(2, 24);
+CALL inscrire_participant(2, 2, NULL);
+CALL inscrire_participant(2, 2, NULL);
+CALL inscrire_participant(2, 24, NULL);
+DELETE FROM
+	inscription
+WHERE
+	congresid = 4
+	AND participantid = 35;
+CALL inscrire_participant(4, 35, '2025-09-10');
+CALL inscrire_participant(4, 23, '2025-09-10');
+CALL inscrire_participant(4, 24, '2025-09-10');
 -- 3a
 SELECT
 	personneid,

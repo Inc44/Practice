@@ -158,6 +158,18 @@ FROM
 	) AS commandes_france ON employeId = commandes_france.responsableId
 WHERE
 	commandes_france.responsableId IS NULL;
+SELECT
+	e.nom,
+	prenom
+FROM
+	(
+		commandes co
+		JOIN clients c ON co.clientId = c.clientId
+		AND Pays = 'France'
+	)
+	RIGHT JOIN employes e ON responsableId = employeId
+WHERE
+	commandeId IS NULL;
 -- 8
 SELECT
 	p.libelle,
