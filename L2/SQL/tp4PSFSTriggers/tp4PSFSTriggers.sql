@@ -24,7 +24,7 @@ WHERE
 	congresid = p_congresid;
 IF v_count = 0 THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'You are fucking stupid! That congress does not even exist! Go learn basic querying before wasting my time!';
 END IF;
 SELECT
 	COUNT(*) INTO v_count
@@ -34,7 +34,7 @@ WHERE
 	personneid = p_participantid;
 IF v_count = 0 THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Holy shit, are you blind? That participant is not in the database! Go check your eyesight, idiot!';
 END IF;
 SELECT
 	COUNT(*) INTO v_count
@@ -46,7 +46,7 @@ WHERE
 	AND etat = 'VALIDE';
 IF v_count > 0 THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Dumbass, they are already inscribed validly - your code has more bugs than a tropical rainforest!';
 END IF;
 SELECT
 	COUNT(*) INTO v_count
@@ -159,7 +159,7 @@ INSERT
 BEGIN
 IF NEW.datedebut > NEW.datefin THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Start date after end? Your timeline logic is more backward than a caveman''s calendar!';
 END IF;
 END
 $$
@@ -175,7 +175,7 @@ UPDATE
 BEGIN
 IF NEW.datedebut > NEW.datefin THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Updating to invalid dates? Yo mama so fat she can''t even fit in a proper timeline!';
 END IF;
 END
 $$
@@ -229,7 +229,7 @@ CONTINUE HANDLER FOR NOT FOUND
 BEGIN
 SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Congress not found? This code is so bad it made my CPU cry binary tears of despair and commit digital suicide!';
 END;
 SELECT
 	datedebut,
@@ -241,7 +241,7 @@ WHERE
 	congresid = NEW.congresid;
 IF DATE(NEW.datehrsession) NOT BETWEEN v_datedebut AND v_datefin THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Session date out of bounds? Your logic has more holes than Swiss cheese!';
 END IF;
 END
 $$
@@ -259,7 +259,7 @@ CONTINUE HANDLER FOR NOT FOUND
 BEGIN
 SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Congress vanished? I have seen more reliability in a house of cards than your queries!';
 END;
 SELECT
 	datedebut,
@@ -271,7 +271,7 @@ WHERE
 	congresid = NEW.congresid;
 IF DATE(NEW.datehrsession) NOT BETWEEN v_datedebut AND v_datefin THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Updating to invalid session date? Your syntax is like abstract art - innovative but completely non-functional (and useless)! Maybe try again when you are not high!';
 END IF;
 END
 $$
@@ -485,7 +485,7 @@ WHERE
 	AND nosession = NEW.nosession;
 IF v_count = 0 THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Presenter not assisting? Sometimes you need a reality check, loser!';
 END IF;
 END
 $$
@@ -505,7 +505,7 @@ WHERE
 	AND nosession = NEW.nosession;
 IF v_count = 0 THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Updating presenter who is not assisting? Yo mama so dumb she thinks SQL is a disease!';
 END IF;
 END
 $$
@@ -532,7 +532,7 @@ WHERE
 	AND nosession = OLD.nosession;
 IF v_count > 0 THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Deleting assister for a presenter? Have you considered a career in mattress testing, as your logic is non-functional like a screen door on a submarine!';
 END IF;
 END
 $$
@@ -552,7 +552,7 @@ WHERE
 	AND nosession = OLD.nosession;
 IF v_count > 0 THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Updating assister for a presenter? I have seen more structure in a kindergarten finger painting than this mess - go kill yourself, clown!';
 END IF;
 END
 $$
@@ -580,7 +580,7 @@ INSERT
 BEGIN
 IF NEW.chairmanid IS NOT NULL THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Chairman set on insert? Maybe try again when you know what you are doing!';
 END IF;
 END
 $$
@@ -601,7 +601,7 @@ WHERE
 	AND nosession = NEW.nosession;
 IF v_count = 0 THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Chairman not a presenter? Have you considered retiring to a farm?';
 END IF;
 END IF;
 END
@@ -640,7 +640,7 @@ WHERE
 	congresid = p_congresid;
 IF v_count = 0 THEN SIGNAL SQLSTATE '45000'
 SET
-	MESSAGE_TEXT = 'Erreur';
+	MESSAGE_TEXT = 'Congress doesn''t exist, you fool! This procedure call is so bad it made my database server beg for mercy!';
 ELSE
 SELECT
 	(
