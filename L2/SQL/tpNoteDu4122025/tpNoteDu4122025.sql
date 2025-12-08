@@ -1,4 +1,4 @@
--- 1 OK
+-- 1
 -- 2
 SELECT
 	nom,
@@ -13,7 +13,8 @@ FROM
 	personne p
 	JOIN possede po ON p.personneid = po.personneid
 	JOIN logement l ON po.logementid = l.logementid;
--- 3 OK
+-- 646 records instead of 358
+-- 3
 SELECT
 	nom,
 	(
@@ -38,7 +39,7 @@ WHERE
 		WHERE
 			v2.villeid = v.villeid
 	) >= 3;
--- 4 OK
+-- 4
 SELECT
 	nom,
 	prenom,
@@ -76,7 +77,7 @@ FROM
 	LEFT JOIN diagnostique d ON a.personneid = d.personneid
 WHERE
 	d.personneid IS NULL;
--- 5 OK
+-- 5
 SELECT
 	nom,
 	surface
@@ -90,16 +91,16 @@ WHERE
 		FROM
 			logement
 	);
--- 6 OK
+-- 6
 SELECT
-	'Nombre de logement et surface moyenne' AS type,
+	'Nombre de logements et surface moyenne' AS type,
 	COUNT(logementid) AS n,
 	AVG(surface) AS s
 FROM
 	logement
 UNION
 SELECT
-	'Nombre d appartements et surface moyenne' AS type,
+	'Nombre d''appartements et surface moyenne' AS type,
 	COUNT(logementid) AS n,
 	AVG(surface) AS s
 FROM
@@ -119,7 +120,7 @@ SELECT
 		PARTITION BY nom
 		ORDER BY
 			surface DESC -- otherwise, highest rank for smallest surface area instead of largest
-	) as rang,
+	) AS rang,
 	m.logementid,
 	surface
 FROM
@@ -130,7 +131,7 @@ ORDER BY
 	nom,
 	surface DESC;
 -- otherwise, highest rank for smallest surface area instead of largest
--- 8 OK
+-- 8
 SELECT
 	logementid,
 	adresse,
@@ -139,7 +140,7 @@ SELECT
 	NTILE(5) OVER (
 		ORDER BY
 			surface DESC
-	) as quintileSurface
+	) AS quintileSurface
 FROM
 	appartement a
 	JOIN ville v ON a.villeid = v.villeid;
@@ -150,13 +151,14 @@ WITH stats AS (
 		energie AS classeEnergie,
 		COUNT(d.logementid) AS nbLogements,
 		AVG(surface) AS surfaceMoyenne,
-		COUNT(d.logementid) AS nbTotalLogementsDiagnostiques
+		SUM(COUNT(d.logementid)) OVER(PARTITION BY nom) AS nbTotalLogementsDiagnostiques
 	FROM
 		diagnostique d
 		JOIN logement l ON d.logementid = l.logementid
 		JOIN ville v ON l.villeid = v.villeid
 	GROUP BY
-		nom
+		nom,
+		energie
 )
 SELECT
 	ville,
