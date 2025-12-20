@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class Groupe {
 	private String code;
 	private String formation;
-	private ArrayList<Etudiant> etudiants;
+	private ArrayList<Etudiant> lesEtudiants;
 
 	private void initgroupe(String code, String formation, ArrayList<Etudiant> liste) {
 		this.code = code;
 		this.formation = formation;
-		this.etudiants = liste;
+		this.lesEtudiants = liste;
 	}
 
 	public Groupe(String code, String formation, ArrayList<Etudiant> liste) {
@@ -22,20 +22,20 @@ public class Groupe {
 	}
 
 	public ArrayList<Etudiant> getListeEtudiants() {
-		return this.etudiants;
+		return this.lesEtudiants;
 	}
 
 	public void addEtudiant(Etudiant etudiant) {
-		if (!this.etudiants.contains(etudiant)) {
+		if (!this.lesEtudiants.contains(etudiant)) {
 			etudiant.setGroupe(this);
-			this.etudiants.add(etudiant);
+			this.lesEtudiants.add(etudiant);
 		}
 	}
 
 	public void delEtudiant(Etudiant etudiant) {
-		if (this.etudiants.contains(etudiant)) {
+		if (this.lesEtudiants.contains(etudiant)) {
 			etudiant.setGroupe(null);
-			this.etudiants.remove(etudiant);
+			this.lesEtudiants.remove(etudiant);
 		}
 	}
 
@@ -55,7 +55,7 @@ public class Groupe {
 	@Override
 	public String toString() {
 		return "Groupe [code=" + code + ", formation=" + formation
-			+ ", étudiant(s) =" + this.etudiants + "]";
+			+ ", étudiant(s) =" + this.lesEtudiants + "]";
 	}
 
 	public String resume() {

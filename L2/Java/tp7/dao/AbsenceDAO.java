@@ -29,6 +29,7 @@ public class AbsenceDAO extends DAO<Absence> {
 
 	@Override
 	public Absence update(Absence abs) {
+		// Can't, as every column is a primary key
 		return abs;
 	}
 
@@ -80,7 +81,7 @@ public class AbsenceDAO extends DAO<Absence> {
 		try {
 			rs = stmt.executeQuery(requete);
 			while (rs.next()) {
-				et = etDAO.read(rs.getLong(4));
+				et = etDAO.read(rs.getLong(3));
 				Absence abs = new Absence(rs.getString(1), rs.getString(2), et);
 				lesAbsences.add(abs);
 				trouve = true;
@@ -107,7 +108,7 @@ public class AbsenceDAO extends DAO<Absence> {
 		try {
 			rs = stmt.executeQuery(requete);
 			while (rs.next()) {
-				et = etDAO.read(rs.getLong(4));
+				et = etDAO.read(rs.getLong(3));
 				Absence abs = new Absence(rs.getString(1), rs.getString(2), et);
 				lesAbsences.add(abs);
 				trouve = true;

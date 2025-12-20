@@ -63,20 +63,21 @@ public class EtudiantDAO extends DAO<Etudiant> {
 	public Etudiant read(long id) {
 		GroupeDAO gd = new GroupeDAO();
 		Groupe g = null;
-		Etudiant el = null;
+		Etudiant et = null;
 		String requete = "SELECT id, nom, prenom, groupecode FROM etudiant WHERE id = " + id;
 		try {
 			rs = stmt.executeQuery(requete);
 			if (rs.first()) {
+				// Commented to prevent infinite recursion (Etudiant -> Groupe -> Etudiant -> ...)
 				// g = gd.read(rs.getString(4));
-				el = new Etudiant(rs.getLong(1), rs.getString(2), rs.getString(3), g);
+				et = new Etudiant(rs.getLong(1), rs.getString(2), rs.getString(3), g);
 			}
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return el;
+		return et;
 	}
 
 	public ArrayList<Etudiant> read() {
@@ -90,8 +91,8 @@ public class EtudiantDAO extends DAO<Etudiant> {
 			rs = stmt.executeQuery(requete);
 			while (rs.next()) {
 				g = gd.read(rs.getString(4));
-				Etudiant el = new Etudiant(rs.getLong(1), rs.getString(2), rs.getString(3), g);
-				lesEtudiants.add(el);
+				Etudiant et = new Etudiant(rs.getLong(1), rs.getString(2), rs.getString(3), g);
+				lesEtudiants.add(et);
 				trouve = true;
 			}
 			rs.close();
@@ -115,8 +116,8 @@ public class EtudiantDAO extends DAO<Etudiant> {
 			rs = stmt.executeQuery(requete);
 			while (rs.next()) {
 				g = gd.read(rs.getString(4));
-				Etudiant el = new Etudiant(rs.getLong(1), rs.getString(2), rs.getString(3), g);
-				lesEtudiants.add(el);
+				Etudiant et = new Etudiant(rs.getLong(1), rs.getString(2), rs.getString(3), g);
+				lesEtudiants.add(et);
 				trouve = true;
 			}
 			rs.close();

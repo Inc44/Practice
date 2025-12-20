@@ -15,14 +15,10 @@ public class GroupeDAO extends DAO<Groupe> {
 	@Override
 	public Groupe create(Groupe grp) {
 		// creation du groupe seul
-		String requete = "INSERT INTO groupe (formation) VALUES('" + grp.getCode() + "')";
+		String requete = "INSERT INTO groupe (code, formation) VALUES('" + grp.getCode() + "', '"
+			+ grp.getFormation() + "')";
 		try {
-			stmt.executeUpdate(requete, Statement.RETURN_GENERATED_KEYS);
-			// Les cles auto-generees sont retournees sous forme de ResultSet
-			ResultSet cles = stmt.getGeneratedKeys();
-			if (cles.next()) {
-				grp.setCode((String) cles.getObject(1));
-			}
+			stmt.executeUpdate(requete);
 			// ajout éventuel d'étudiants
 			EtudiantDAO tableEtu = new EtudiantDAO();
 			for (Etudiant etudiant : grp.getListeEtudiants()) {
