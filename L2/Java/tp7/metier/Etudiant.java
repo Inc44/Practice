@@ -6,6 +6,7 @@ public class Etudiant {
 	private String prenom;
 	private Groupe groupe;
 
+	// Don't repeat yourself
 	private void initEtudiant(long id, String nom, String prenom, Groupe groupe) {
 		this.id = id;
 		this.nom = nom;
@@ -16,10 +17,12 @@ public class Etudiant {
 	}
 
 	public Etudiant(String nom, String prenom, Groupe groupe) {
+		// Don't repeat yourself
 		initEtudiant(0, nom, prenom, groupe);
 	}
 
 	public Etudiant(long id, String nom, String prenom, Groupe groupe) {
+		// Don't repeat yourself
 		initEtudiant(id, nom, prenom, groupe);
 	}
 
@@ -60,6 +63,7 @@ public class Etudiant {
 		String resultat =
 			"Etudiant [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", groupe=";
 		if (groupe != null)
+			// To prevent infinite recursion (Etudiant -> Groupe -> Etudiant -> ...)
 			resultat += groupe.resume();
 		resultat += "]";
 		return resultat;

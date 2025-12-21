@@ -21,10 +21,12 @@ public class Groupe {
 		initgroupe(null, formation, new ArrayList<Etudiant>());
 	}
 
+	// ORM for bidirectional consistency
 	public ArrayList<Etudiant> getListeEtudiants() {
 		return this.lesEtudiants;
 	}
 
+	// ORM for bidirectional consistency
 	public void addEtudiant(Etudiant etudiant) {
 		if (!this.lesEtudiants.contains(etudiant)) {
 			etudiant.setGroupe(this);
@@ -32,6 +34,7 @@ public class Groupe {
 		}
 	}
 
+	// ORM for bidirectional consistency
 	public void delEtudiant(Etudiant etudiant) {
 		if (this.lesEtudiants.contains(etudiant)) {
 			etudiant.setGroupe(null);
@@ -58,6 +61,7 @@ public class Groupe {
 			+ ", étudiant(s) =" + this.lesEtudiants + "]";
 	}
 
+	// To prevent infinite recursion (Etudiant -> Groupe -> Etudiant -> ...)
 	public String resume() {
 		return "Groupe [code=" + code + ", formation=" + formation + "]";
 	}

@@ -9,6 +9,17 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 public class SingleConnection {
 	private static Connection connect;
 
+	private SingleConnection() throws ClassNotFoundException, SQLException {
+		String url = "jdbc:mysql://127.0.0.1:3306/absences?serverTimezone=UTC";
+		String login = "root";
+		String password = "";
+		MysqlDataSource mysqlDS = new MysqlDataSource();
+		mysqlDS.setURL(url);
+		mysqlDS.setUser(login);
+		mysqlDS.setPassword(password);
+		connect = mysqlDS.getConnection();
+	}
+	/*
 	// Constructeur prive pour une connexion avec MysqlDataSource
 	private SingleConnection(String serverName, String dbName, String login, String password)
 		throws ClassNotFoundException, SQLException {
@@ -33,10 +44,12 @@ public class SingleConnection {
 		}
 		return connect;
 	}
+	*/
 
 	public static Connection getInstance() throws ClassNotFoundException, SQLException {
 		if (connect == null) {
-			new SingleConnection("127.0.0.1", "absences", "root", "");
+			// new SingleConnection("127.0.0.1", "absences", "root", "");
+			new SingleConnection();
 		}
 		return connect;
 	}
