@@ -1,6 +1,7 @@
 package tp7.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,10 +16,12 @@ public class GroupeDAO extends DAO<Groupe> {
 	@Override
 	public Groupe create(Groupe grp) {
 		// creation du groupe seul
-		String requete = "INSERT INTO groupe (code, formation) VALUES('" + grp.getCode() + "', '"
-			+ grp.getFormation() + "')";
+		String requete = "INSERT INTO groupe (code, formation) VALUES(?, ?)";
 		try {
-			stmt.executeUpdate(requete);
+			PreparedStatement pstmt = connect.prepareStatement(requete);
+			pstmt.setString(1, grp.getCode());
+			pstmt.setString(2, grp.getFormation());
+			pstmt.executeUpdate();
 			// ajout éventuel d'étudiants
 			EtudiantDAO tableEtu = new EtudiantDAO();
 			for (Etudiant etudiant : grp.getListeEtudiants()) {
@@ -37,10 +40,12 @@ public class GroupeDAO extends DAO<Groupe> {
 
 	@Override
 	public Groupe update(Groupe grp) {
-		String requete = "UPDATE groupe SET formation ='" + grp.getFormation() + "' WHERE code = '"
-			+ grp.getCode() + "'";
+		String requete = "UPDATE groupe SET formation = ? WHERE code = ?";
 		try {
-			stmt.executeUpdate(requete);
+			PreparedStatement pstmt = connect.prepareStatement(requete);
+			pstmt.setString(1, grp.getFormation());
+			pstmt.setString(2, grp.getCode());
+			pstmt.executeUpdate();
 			// ajout éventuel d'étudiants
 			EtudiantDAO tableEtu = new EtudiantDAO();
 			for (Etudiant etudiant : grp.getListeEtudiants()) {
@@ -62,9 +67,11 @@ public class GroupeDAO extends DAO<Groupe> {
 
 	@Override
 	public void delete(Groupe grp) {
-		String requete = "DELETE FROM groupe WHERE code ='" + grp.getCode() + "'";
+		String requete = "DELETE FROM groupe WHERE code = ?";
 		try {
-			stmt.executeUpdate(requete);
+			PreparedStatement pstmt = connect.prepareStatement(requete);
+			pstmt.setString(1, grp.getCode());
+			pstmt.executeUpdate();
 			// suppression des étudiants liés
 			EtudiantDAO tableEtu = new EtudiantDAO();
 			for (Etudiant etudiant : grp.getListeEtudiants()) {
@@ -82,9 +89,12 @@ public class GroupeDAO extends DAO<Groupe> {
 		Groupe grp = null;
 		String requete = "SELECT code as idgrp, formation, id as idetu, prenom, nom "
 			+ "FROM groupe INNER JOIN etudiant ON groupe.code = etudiant.groupecode "
-			+ "WHERE code = '" + code + "'";
+			+ "WHERE code = ?";
 		try {
-			rs = stmt.executeQuery(requete);
+			PreparedStatement pstmt = connect.prepareStatement(
+				requete, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			pstmt.setString(1, code);
+			rs = pstmt.executeQuery();
 			// chargement des étudiants liés
 			if (rs.first()) {
 				EtudiantDAO tableEtu = new EtudiantDAO();

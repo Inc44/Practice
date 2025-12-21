@@ -1,5 +1,6 @@
 package tp7.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,12 +15,16 @@ public class AbsenceDAO extends DAO<Absence> {
 	public Absence create(Absence abs) {
 		// TODO Auto-generated method stub
 
-		String requete = "INSERT INTO absence (dateabs, hrabs, groupecode, etudiantid) ";
-		requete = requete + "VALUES('" + abs.getDateAbs() + "' ,'" + abs.getHrAbs() + "', "
-			+ abs.getEtudiant().getId() + ")";
+		String requete =
+			"INSERT INTO absence (dateabs, hrabs, groupecode, etudiantid) VALUES(?, ?, ?)";
 		try {
-			// stmt.executeUpdate(requete, Statement.RETURN_GENERATED_KEYS);
-			stmt.executeUpdate(requete);
+			// PreparedStatement pstmt = connect.prepareStatement(requete,
+			// Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = connect.prepareStatement(requete);
+			pstmt.setString(1, abs.getDateAbs());
+			pstmt.setString(2, abs.getHrAbs());
+			pstmt.setLong(3, abs.getEtudiant().getId());
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,12 +41,13 @@ public class AbsenceDAO extends DAO<Absence> {
 	@Override
 	public void delete(Absence abs) {
 		// TODO Auto-generated method stub
-		String requete = "DELETE FROM absence";
-		requete += " WHERE dateabs = '" + abs.getDateAbs() + "', ";
-		requete += "AND hrabs = '" + abs.getHrAbs() + "', ";
-		requete += "AND etudiantid = " + abs.getEtudiant().getId();
+		String requete = "DELETE FROM absence WHERE dateabs = ? AND hrabs = ? AND etudiantid = ?";
 		try {
-			stmt.executeUpdate(requete);
+			PreparedStatement pstmt = connect.prepareStatement(requete);
+			pstmt.setString(1, abs.getDateAbs());
+			pstmt.setString(2, abs.getHrAbs());
+			pstmt.setLong(3, abs.getEtudiant().getId());
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,11 +55,12 @@ public class AbsenceDAO extends DAO<Absence> {
 	}
 
 	public void delete(String date, String heure) {
-		String requete = "DELETE FROM absence";
-		requete = requete + " WHERE dateabs = '" + date + "' ";
-		requete = requete + "AND hrabs = '" + heure + "'";
+		String requete = "DELETE FROM absence WHERE dateabs = ? AND hrabs = ?";
 		try {
-			stmt.executeUpdate(requete);
+			PreparedStatement pstmt = connect.prepareStatement(requete);
+			pstmt.setString(1, date);
+			pstmt.setString(2, heure);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,10 +68,11 @@ public class AbsenceDAO extends DAO<Absence> {
 	}
 
 	public void delete(Etudiant etudiant) {
-		String requete = "DELETE FROM absence";
-		requete = requete + " WHERE etudiantid = " + etudiant.getId();
+		String requete = "DELETE FROM absence WHERE etudiantid = ?";
 		try {
-			stmt.executeUpdate(requete);
+			PreparedStatement pstmt = connect.prepareStatement(requete);
+			pstmt.setLong(1, etudiant.getId());
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,14 +107,16 @@ public class AbsenceDAO extends DAO<Absence> {
 		EtudiantDAO etDAO = new EtudiantDAO();
 		Etudiant et = null;
 		boolean trouve = false;
-		String requete = "SELECT dateabs, hrabs, etudiantid FROM absence";
-		requete = requete + " WHERE dateabs = '" + date + "', ";
-		requete = requete + "AND hrabs = '" + heure + "'";
+		String requete =
+			"SELECT dateabs, hrabs, etudiantid FROM absence WHERE dateabs = ? AND hrabs = ?";
 
 		ArrayList<Absence> lesAbsences = new ArrayList<Absence>();
 
 		try {
-			rs = stmt.executeQuery(requete);
+			PreparedStatement pstmt = connect.prepareStatement(requete);
+			pstmt.setString(1, date);
+			pstmt.setString(2, heure);
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				et = etDAO.read(rs.getLong(3));
 				Absence abs = new Absence(rs.getString(1), rs.getString(2), et);
