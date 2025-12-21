@@ -56,12 +56,12 @@ public class Test1 {
 		/*
 		// Execution d'une requete test
 		// Execution de requetes
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = cn.createStatement();
 			String sqlQuery = "SELECT * FROM etudiant";
-			rs = st.executeQuery(sqlQuery);
+			st = cn.prepareStatement(sqlQuery);
+			rs = st.executeQuery();
 		} catch (SQLException e) {
 			System.err.println("Erreur requete SQL");
 			e.printStackTrace();
@@ -84,13 +84,14 @@ public class Test1 {
 		/*
 		// 6) a)
 		System.out.println("\n Etudiants du groupe INFL2G1A");
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = cn.createStatement();
-			String sqlQuery = "SELECT * FROM etudiant WHERE groupecode LIKE 'INFL2G1A'";
-			rs = st.executeQuery(sqlQuery); // utiliser executeQuery quand on fait un select
-											// (executeQuery retourne un objet Result)
+			String sqlQuery = "SELECT * FROM etudiant WHERE groupecode LIKE ?";
+			st = cn.prepareStatement(sqlQuery);
+			st.setString(1, "INFL2G1A");
+			rs = st.executeQuery(); // utiliser executeQuery quand on fait un select
+									// (executeQuery retourne un objet Result)
 		} catch (SQLException e) {
 			System.err.println("Erreur requete SQL");
 			e.printStackTrace();
@@ -112,12 +113,15 @@ public class Test1 {
 
 		/*
 		// 6) b)
-		Statement st = null;
+		PreparedStatement st = null;
 		try {
-			st = cn.createStatement();
 			String sqlQuery = "INSERT INTO etudiant (nom, prenom, groupecode)"
-				+ "VALUES ('MELON', 'Gilles', 'INFL2G1A')";
-			int result = st.executeUpdate(sqlQuery); // utiliser executeUpdate
+				+ "VALUES (?, ?, ?)";
+			st = cn.prepareStatement(sqlQuery);
+			st.setString(1, "MELON");
+			st.setString(2, "Gilles");
+			st.setString(3, "INFL2G1A");
+			int result = st.executeUpdate(); // utiliser executeUpdate
 			// quand on fait autre chose qu'un select (executeUpdate retourne un int du nombre de
 			// modifications)
 			System.out.println("\n Nombre d'ajouts : " + result);
@@ -130,12 +134,13 @@ public class Test1 {
 
 		/*
 		// 6) c)
-		Statement st = null;
+		PreparedStatement st = null;
 		try {
-			st = cn.createStatement();
-			String sqlQuery =
-				"DELETE FROM etudiant WHERE nom LIKE 'MELON' AND prenom LIKE 'Gilles'";
-			int result = st.executeUpdate(sqlQuery);
+			String sqlQuery = "DELETE FROM etudiant WHERE nom LIKE ? AND prenom LIKE ?";
+			st = cn.prepareStatement(sqlQuery);
+			st.setString(1, "MELON");
+			st.setString(2, "Gilles");
+			int result = st.executeUpdate();
 			System.out.println("\n Nombre de suppressions : " + result);
 
 		} catch (SQLException e) {
@@ -146,11 +151,13 @@ public class Test1 {
 
 		/*
 		// 6) d)
-		Statement st = null;
+		PreparedStatement st = null;
 		try {
-			st = cn.createStatement();
-			String sqlQuery = "UPDATE etudiant SET nom='MARTIN' WHERE nom LIKE 'SENAI'";
-			int result = st.executeUpdate(sqlQuery);
+			String sqlQuery = "UPDATE etudiant SET nom=? WHERE nom LIKE ?";
+			st = cn.prepareStatement(sqlQuery);
+			st.setString(1, "MARTIN");
+			st.setString(2, "SENAI");
+			int result = st.executeUpdate();
 			System.out.println("\n Nombre de modifications : " + result);
 
 		} catch (SQLException e) {
@@ -208,19 +215,24 @@ public class Test1 {
 		*/
 
 		// 6) g)
-		Statement st = null;
+		PreparedStatement st = null;
 		try {
 			cn.setAutoCommit(false);
-			Statement stmt = cn.createStatement();
-			stmt.addBatch("INSERT INTO discipline "
-				+ "VALUES(1, 'Informatique')"
-				+ "ON DUPLICATE KEY UPDATE libelle='Informatique'");
-			stmt.addBatch("INSERT INTO discipline "
-				+ "VALUES(2, 'Biologie')"
-				+ "ON DUPLICATE KEY UPDATE libelle='Biologie'");
-			stmt.addBatch("INSERT INTO discipline "
-				+ "VALUES(3, 'Mathématique')"
-				+ "ON DUPLICATE KEY UPDATE libelle='Mathématique'");
+			String sqlQuery = "INSERT INTO discipline VALUES(?, ?) "
+				+ "ON DUPLICATE KEY UPDATE libelle=?";
+			PreparedStatement stmt = cn.prepareStatement(sqlQuery);
+			stmt.setInt(1, 1);
+			stmt.setString(2, "Informatique");
+			stmt.setString(3, "Informatique");
+			stmt.addBatch();
+			stmt.setInt(1, 2);
+			stmt.setString(2, "Biologie");
+			stmt.setString(3, "Biologie");
+			stmt.addBatch();
+			stmt.setInt(1, 3);
+			stmt.setString(2, "Mathématique");
+			stmt.setString(3, "Mathématique");
+			stmt.addBatch();
 			int[] updateCounts = stmt.executeBatch();
 			cn.commit();
 			cn.setAutoCommit(true);
