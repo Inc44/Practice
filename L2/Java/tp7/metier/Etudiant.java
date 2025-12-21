@@ -1,13 +1,13 @@
 package tp7.metier;
 
 public class Etudiant {
-	private long id;
+	private int id;
 	private String nom;
 	private String prenom;
 	private Groupe groupe;
 
 	// Don't repeat yourself
-	private void initEtudiant(long id, String nom, String prenom, Groupe groupe) {
+	private void initEtudiant(int id, String nom, String prenom, Groupe groupe) {
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -21,16 +21,15 @@ public class Etudiant {
 		initEtudiant(0, nom, prenom, groupe);
 	}
 
-	public Etudiant(long id, String nom, String prenom, Groupe groupe) {
+	public Etudiant(int id, String nom, String prenom, Groupe groupe) {
 		// Don't repeat yourself
 		initEtudiant(id, nom, prenom, groupe);
 	}
-
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

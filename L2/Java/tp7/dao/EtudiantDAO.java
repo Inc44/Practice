@@ -1,6 +1,5 @@
 package tp7.dao;
 
-import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +25,7 @@ public class EtudiantDAO extends DAO<Etudiant> {
 			// Les cles auto-generees sont retournees sous forme de ResultSet
 			ResultSet cles = pstmt.getGeneratedKeys();
 			if (cles.next()) {
-				long id = ((BigInteger) cles.getObject(1)).longValue();
+				int id = cles.getInt(1);
 				unEtudiant.setId(id);
 			}
 
@@ -46,7 +45,7 @@ public class EtudiantDAO extends DAO<Etudiant> {
 			pstmt.setString(1, unEtudiant.getNom());
 			pstmt.setString(2, unEtudiant.getPrenom());
 			pstmt.setString(3, unEtudiant.getGroupe().getCode());
-			pstmt.setLong(4, unEtudiant.getId());
+			pstmt.setInt(4, unEtudiant.getId());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,7 +59,7 @@ public class EtudiantDAO extends DAO<Etudiant> {
 		String requete = "DELETE FROM etudiant WHERE id = ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(requete);
-			pstmt.setLong(1, unEtudiant.getId());
+			pstmt.setInt(1, unEtudiant.getId());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -68,7 +67,7 @@ public class EtudiantDAO extends DAO<Etudiant> {
 		}
 	}
 
-	public Etudiant read(long id) {
+	public Etudiant read(int id) {
 		GroupeDAO gd = new GroupeDAO();
 		Groupe g = null;
 		Etudiant et = null;
@@ -76,12 +75,12 @@ public class EtudiantDAO extends DAO<Etudiant> {
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(
 				requete, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			pstmt.setLong(1, id);
+			pstmt.setInt(1, id);
 			rs = pstmt.executeQuery();
 			if (rs.first()) {
 				// Commented to prevent infinite recursion (Etudiant -> Groupe -> Etudiant -> ...)
 				// g = gd.read(rs.getString(4));
-				et = new Etudiant(rs.getLong(1), rs.getString(2), rs.getString(3), g);
+				et = new Etudiant(rs.getInt(1), rs.getString(2), rs.getString(3), g);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -95,14 +94,14 @@ public class EtudiantDAO extends DAO<Etudiant> {
 		GroupeDAO gd = new GroupeDAO();
 		Groupe g = null;
 		boolean trouve = false;
-		String requete = "SELECT id, nom, prenom, codegroupe FROM etudiant ";
+		String requete = "SELECT id, nom, prenom, groupecode FROM etudiant ";
 		ArrayList<Etudiant> lesEtudiants = new ArrayList<Etudiant>();
 
 		try {
 			rs = stmt.executeQuery(requete);
 			while (rs.next()) {
 				g = gd.read(rs.getString(4));
-				Etudiant et = new Etudiant(rs.getLong(1), rs.getString(2), rs.getString(3), g);
+				Etudiant et = new Etudiant(rs.getInt(1), rs.getString(2), rs.getString(3), g);
 				lesEtudiants.add(et);
 				trouve = true;
 			}
@@ -115,20 +114,20 @@ public class EtudiantDAO extends DAO<Etudiant> {
 		return lesEtudiants;
 	}
 
-	public ArrayList<Etudiant> readGroupe(long codeGroupe) {
+	public ArrayList<Etudiant> readGroupe(String codeGroupe) {
 		GroupeDAO gd = new GroupeDAO();
 		Groupe g = null;
 		boolean trouve = false;
-		String requete = "SELECT id, nom, prenom, codegroupe FROM etudiant WHERE codegroupe = ?";
+		String requete = "SELECT id, nom, prenom, groupecode FROM etudiant WHERE groupecode = ?";
 		ArrayList<Etudiant> lesEtudiants = new ArrayList<Etudiant>();
 
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(requete);
-			pstmt.setLong(1, codeGroupe);
+			pstmt.setString(1, codeGroupe);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				g = gd.read(rs.getString(4));
-				Etudiant et = new Etudiant(rs.getLong(1), rs.getString(2), rs.getString(3), g);
+				Etudiant et = new Etudiant(rs.getInt(1), rs.getString(2), rs.getString(3), g);
 				lesEtudiants.add(et);
 				trouve = true;
 			}

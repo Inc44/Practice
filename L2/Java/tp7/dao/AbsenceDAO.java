@@ -15,15 +15,14 @@ public class AbsenceDAO extends DAO<Absence> {
 	public Absence create(Absence abs) {
 		// TODO Auto-generated method stub
 
-		String requete =
-			"INSERT INTO absence (dateabs, hrabs, groupecode, etudiantid) VALUES(?, ?, ?)";
+		String requete = "INSERT INTO absence (dtabs, hrabs, etudiantid) VALUES(?, ?, ?)";
 		try {
 			// PreparedStatement pstmt = connect.prepareStatement(requete,
 			// Statement.RETURN_GENERATED_KEYS);
 			PreparedStatement pstmt = connect.prepareStatement(requete);
 			pstmt.setString(1, abs.getDateAbs());
 			pstmt.setString(2, abs.getHrAbs());
-			pstmt.setLong(3, abs.getEtudiant().getId());
+			pstmt.setInt(3, abs.getEtudiant().getId());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -41,12 +40,12 @@ public class AbsenceDAO extends DAO<Absence> {
 	@Override
 	public void delete(Absence abs) {
 		// TODO Auto-generated method stub
-		String requete = "DELETE FROM absence WHERE dateabs = ? AND hrabs = ? AND etudiantid = ?";
+		String requete = "DELETE FROM absence WHERE dtabs = ? AND hrabs = ? AND etudiantid = ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(requete);
 			pstmt.setString(1, abs.getDateAbs());
 			pstmt.setString(2, abs.getHrAbs());
-			pstmt.setLong(3, abs.getEtudiant().getId());
+			pstmt.setInt(3, abs.getEtudiant().getId());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -55,7 +54,7 @@ public class AbsenceDAO extends DAO<Absence> {
 	}
 
 	public void delete(String date, String heure) {
-		String requete = "DELETE FROM absence WHERE dateabs = ? AND hrabs = ?";
+		String requete = "DELETE FROM absence WHERE dtabs = ? AND hrabs = ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(requete);
 			pstmt.setString(1, date);
@@ -71,7 +70,7 @@ public class AbsenceDAO extends DAO<Absence> {
 		String requete = "DELETE FROM absence WHERE etudiantid = ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(requete);
-			pstmt.setLong(1, etudiant.getId());
+			pstmt.setInt(1, etudiant.getId());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -83,13 +82,13 @@ public class AbsenceDAO extends DAO<Absence> {
 		EtudiantDAO etDAO = new EtudiantDAO();
 		Etudiant et = null;
 		boolean trouve = false;
-		String requete = "SELECT dateabs, hrabs, etudiantid FROM absence";
+		String requete = "SELECT dtabs, hrabs, etudiantid FROM absence";
 		ArrayList<Absence> lesAbsences = new ArrayList<Absence>();
 
 		try {
 			rs = stmt.executeQuery(requete);
 			while (rs.next()) {
-				et = etDAO.read(rs.getLong(3));
+				et = etDAO.read(rs.getInt(3));
 				Absence abs = new Absence(rs.getString(1), rs.getString(2), et);
 				lesAbsences.add(abs);
 				trouve = true;
@@ -108,7 +107,7 @@ public class AbsenceDAO extends DAO<Absence> {
 		Etudiant et = null;
 		boolean trouve = false;
 		String requete =
-			"SELECT dateabs, hrabs, etudiantid FROM absence WHERE dateabs = ? AND hrabs = ?";
+			"SELECT dtabs, hrabs, etudiantid FROM absence WHERE dtabs = ? AND hrabs = ?";
 
 		ArrayList<Absence> lesAbsences = new ArrayList<Absence>();
 
@@ -118,7 +117,7 @@ public class AbsenceDAO extends DAO<Absence> {
 			pstmt.setString(2, heure);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				et = etDAO.read(rs.getLong(3));
+				et = etDAO.read(rs.getInt(3));
 				Absence abs = new Absence(rs.getString(1), rs.getString(2), et);
 				lesAbsences.add(abs);
 				trouve = true;

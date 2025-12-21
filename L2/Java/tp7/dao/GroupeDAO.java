@@ -102,7 +102,7 @@ public class GroupeDAO extends DAO<Groupe> {
 				grp = new Groupe(rs.getString("idgrp"), rs.getString("formation"), listeEtudiants);
 				rs.beforeFirst();
 				while (rs.next()) {
-					Etudiant etu = tableEtu.read(rs.getLong("idetu"));
+					Etudiant etu = tableEtu.read(rs.getInt("idetu"));
 					etu.setGroupe(grp);
 					listeEtudiants.add(etu);
 				}
