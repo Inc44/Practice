@@ -10,7 +10,6 @@ curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183392997404
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183392997405/1740802011065/module_Feature_Cards.min.css > module_assets/module_Feature_Cards.min.css
 curl https://7052064.fs1.hubspotusercontent-na1.net/hubfs/7052064/hub_generated/module_assets/1/-53649664089/1766173979161/module_payments.min.css > module_assets/module_payments.min.css
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393234725/1740802032579/module_Theme_Rich_Text.min.css > module_assets/module_Theme_Rich_Text.min.css
-curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393000541/1740802017402/module_Testimonials_Slider.min.css > module_assets/module_Testimonials_Slider.min.css
 curl https://linkxp.lexprod.net/hubfs/hub_generated/template_assets/1/183392997283/1740625494548/template_framework-script.min.js > module_assets/template_framework-script.min.js
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393234728/1740802036472/module_Back_to_Top.min.js > module_assets/module_Back_to_Top.min.js
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393234724/1740802030932/module_Progress_Bar.min.js > module_assets/module_Progress_Bar.min.js
@@ -18,7 +17,7 @@ curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393000545
 touch styles.css
 ```
 
-Format with Fortify Formatter after every step below:
+`Format with Fortify Formatter` after every step below:
 
 Move content of `<style>` tags to styles.css and remove `<style>` tags
 
@@ -27,6 +26,7 @@ Add `@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,1
 Remove from `styles.css`:
 - `@font-face\n\{[\s\S]*?\}\n`
 - `/\*.*\*/`
+- `(#.*\n){1,2}\{\}`
 
 Add `<link rel="stylesheet" href="styles.css">` to `<head>` after last `<link>` tag
 
@@ -68,6 +68,7 @@ Remove:
 - `<script type="text/javascript">[\s\S]*?</script>\n`
 - `<meta.*>` except `<meta charset="UTF-8">` and `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
 - `<noscript.*>`
+- `<link rel="stylesheet" href=".*/module_Testimonials_Slider.min.css">`
 - `<link rel="canonical" href="https://linkxp.lexprod.net">`
 - `<p></p>`
 - `http://lexprod.net`
@@ -105,3 +106,9 @@ Remove:
 
 Replace:
 - `<span id="hs_cos_wrapper_site-footer-module-[0-9]{1,2}_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text">([\s\S]*?)^\s*</span></div>\n` with `$1</div>`
+
+Remove from `template_framework-style-main.min`:
+- `-moz-columns: .;`
+- `.*Parse error[\s\S]*\n.*`
+
+`UnCSS my styles` using `index.html` as `Your HTML` and `styles.css` as `Your CSS`
