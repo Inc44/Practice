@@ -113,4 +113,8 @@ Remove from `template_framework-style-main.min`:
 - `-moz-columns: .;`
 - `.*Parse error[\s\S]*\n.*`
 
-`UnCSS my styles` using `index.html` as `Your HTML` and `styles.css` as `Your CSS`
+`UnCSS my styles` using `index.html` as `Your HTML` and `*.css` as `Your CSS`
+
+`Px to rem: Converts px to rem` for `*.css`
+
+`To 🎨 rgb_` for `*.css`
