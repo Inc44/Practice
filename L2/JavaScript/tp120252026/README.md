@@ -28,6 +28,9 @@ Remove from `styles.css`:
 - `/\*.*\*/`
 - `(#.*\n){1,2}\{\}`
 
+Replace in `styles.css`:
+- `rgb(255, 246, 238)` with `rgb(248, 248, 248)`
+
 Add to `<head>` after last `<link>` tag:
 - `<link rel="stylesheet" href="styles.css">`
 - `<script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.min.js"></script>`
@@ -109,9 +112,12 @@ Remove:
 Replace:
 - `<span id="hs_cos_wrapper_site-footer-module-[0-9]{1,2}_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text">([\s\S]*?)^\s*</span></div>\n` with `$1</div>`
 
-Remove from `template_framework-style-main.min`:
+Remove from `template_framework-style-main.min.css`:
 - `-moz-columns: .;`
 - `.*Parse error[\s\S]*\n.*`
+
+Remove from `module_Progress_Bar.min.js`:
+- `window.themeUtility.multiEventListener`
 
 `UnCSS my styles` using `index.html` as `Your HTML` and `*.css` as `Your CSS`
 
