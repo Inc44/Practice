@@ -4,13 +4,12 @@ mkdir module_assets
 curl https://linkxp.lexprod.net/hubfs/hub_generated/template_assets/1/183393234599/1740625487033/template_framework-style-main.min.css > module_assets/template_framework-style-main.min.css
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393234728/1740802036472/module_Back_to_Top.min.css > module_assets/module_Back_to_Top.min.css
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393234724/1740802030932/module_Progress_Bar.min.css > module_assets/module_Progress_Bar.min.css
-curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393000544/1740802019913/module_Hero_-_Two_Column.min.css> module_assets/module_Hero_-_Two_Column.min.css
+curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393000544/1740802019913/module_Hero_-_Two_Column.min.css > module_assets/module_Hero_-_Two_Column.min.css
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393000545/1740802021544/module_Counter.min.css > module_assets/module_Counter.min.css
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183392997404/1740802009777/module_2_Col_Text_and_Image.min.css > module_assets/module_2_Col_Text_and_Image.min.css
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183392997405/1740802011065/module_Feature_Cards.min.css > module_assets/module_Feature_Cards.min.css
 curl https://7052064.fs1.hubspotusercontent-na1.net/hubfs/7052064/hub_generated/module_assets/1/-53649664089/1766173979161/module_payments.min.css > module_assets/module_payments.min.css
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393234725/1740802032579/module_Theme_Rich_Text.min.css > module_assets/module_Theme_Rich_Text.min.css
-curl https://linkxp.lexprod.net/hubfs/hub_generated/template_assets/1/183392997283/1740625494548/template_framework-script.min.js > module_assets/template_framework-script.min.js
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393234728/1740802036472/module_Back_to_Top.min.js > module_assets/module_Back_to_Top.min.js
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393234724/1740802030932/module_Progress_Bar.min.js > module_assets/module_Progress_Bar.min.js
 curl https://linkxp.lexprod.net/hubfs/hub_generated/module_assets/1/183393000545/1740802021544/module_Counter.min.js > module_assets/module_Counter.min.js
@@ -21,20 +20,25 @@ touch styles.css
 
 Move content of `<style>` tags to styles.css and remove `<style>` tags
 
-Add `@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');` to top of `styles.css`
+Add to top of `styles.css`:
+- `@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');`
 
 Remove from `styles.css`:
 - `@font-face\n\{[\s\S]*?\}\n`
 - `/\*.*\*/`
 - `(#.*\n){1,2}\{\}`
 
-Add `<link rel="stylesheet" href="styles.css">` to `<head>` after last `<link>` tag
+Add to `<head>` after last `<link>` tag:
+- `<link rel="stylesheet" href="styles.css">`
+- `<script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.min.js"></script>`
+- `<script defer src="../tp120252026/script.js"></script>`
 
 Replace:
 - `doctype` with `DOCTYPE`
 - `fr-fr` with `fr`
 - `utf` with `UTF`
 - `initial-scale=1` with `initial-scale=1.0`
+- `<title>.*</title>` with `<title>TP 1 - 2025-2026</title>`
 - `<link rel="stylesheet" href=".*/(.*).css">` with `<link rel="stylesheet" href="module_assets/$1.css">`
 - `<script src=".*/(.*).js">` with `<script src="module_assets/$1.js">`
 - `src="https://linkxp.lexprod.net/hs-fs/hubfs/logo---transparent-250x95.png.*?"` with `src="../tp120252026/images/logo---transparent-250x95.png"`
@@ -56,6 +60,7 @@ Replace:
 Remove:
 - `<!--.*-->`
 - `<script.*src=".*/embed.js"></script>`
+- `<script.*src=".*/template_framework-script.min.js"></script>`
 - `<script.*src=".*/project.js"></script>`
 - `<script.*src=".*/module_Hero_-_Two_Column.min.js"></script>`
 - `<script.*src=".*/module_Feature_Cards.min.js"></script>`
@@ -92,17 +97,14 @@ Remove:
 - `<div style="display: none;">[\s\S]*?^\s*</div>\n`
 - `<div class=".*main_content-row-[0-9]-hidden.*">[\s\S]*?^\s{6}</div>\n`
 
-
 Replace:
 - `  ` with ` `
 - `  ` with ` `
 - ` "` with `"`
 - `=" ` with `="`
 
-
 Remove:
 - `class=""`
-
 
 Replace:
 - `<span id="hs_cos_wrapper_site-footer-module-[0-9]{1,2}_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text">([\s\S]*?)^\s*</span></div>\n` with `$1</div>`
