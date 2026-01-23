@@ -34,6 +34,23 @@
                     @enderror
                 </div>
 
+                <!-- Last Name Input -->
+                <div>
+                    <label class="label-text" for="lastname">Last Name</label>
+                    <input
+                        type="text"
+                        id="lastname"
+                        name="lastname"
+                        class="input"
+                        placeholder="Enter your last name"
+                        value="{{ old('lastname', $user->lastname) }}"
+                        required
+                    />
+                    @error('lastname')
+                        <p class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <!-- Email Input -->
                 <div>
                     <label class="label-text" for="email">Email</label>

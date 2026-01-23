@@ -77,6 +77,13 @@
                             @enderror
                         </div>
                         <div>
+                            <label class="label-text" for="userLastName">Last name*</label>
+                            <input type="text" name="lastname" placeholder="Enter your last name" class="input @error('lastname') input-error @enderror" id="userLastName" value="{{ old('lastname') }}" required />
+                            @error('lastname')
+                            <span class="text-error text-sm mt-1">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div>
                             <label class="label-text" for="userEmail">Email address*</label>
                             <input type="email" name="email" placeholder="Enter your email address" class="input @error('email') input-error @enderror" id="userEmail" value="{{ old('email') }}" required />
                             @error('email')

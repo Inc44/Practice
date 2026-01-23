@@ -12,12 +12,21 @@
                 @csrf
                 @method('PUT')
 
-                <div>
-                    <label class="label-text" for="userName">Name*</label>
-                    <input type="text" name="name" placeholder="Enter name" class="input @error('name') input-error @enderror" id="userName" value="{{ old('name', $user->name) }}" required />
-                    @error('name')
-                    <span class="text-error text-sm mt-1">{{ $message }}</span>
-                    @enderror
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div>
+                        <label class="label-text" for="userName">Name*</label>
+                        <input type="text" name="name" placeholder="Enter name" class="input @error('name') input-error @enderror" id="userName" value="{{ old('name', $user->name) }}" required />
+                        @error('name')
+                        <span class="text-error text-sm mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div>
+                        <label class="label-text" for="userLastName">Last Name*</label>
+                        <input type="text" name="lastname" placeholder="Enter last name" class="input @error('lastname') input-error @enderror" id="userLastName" value="{{ old('lastname', $user->lastname) }}" required />
+                        @error('lastname')
+                        <span class="text-error text-sm mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
 
                 <div>
