@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -38,6 +39,14 @@ class User extends Authenticatable
 			"email_verified_at" => "datetime",
 			"password" => "hashed",
 		];
+	}
+
+	// https://laracasts.com/discuss/channels/filament/laravel-accessor-to-get-full-name
+	protected function fullName(): Attribute
+	{
+		return Attribute::make(
+			get: fn() => $this->name . " " . $this->lastname
+		);
 	}
 
 	/**
