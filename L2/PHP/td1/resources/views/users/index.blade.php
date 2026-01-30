@@ -14,6 +14,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
                             <th>Created At</th>
@@ -25,6 +26,7 @@
                         @forelse ($users as $user)
                             <tr>
                                 <td>{{ $user->name }}</td>
+                                <td>{{ $user->firstname }}</td>
                                 <td>{{ $user->lastname }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->created_at->format('F j, Y') }}</td>
@@ -37,7 +39,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center py-8">
+                                <td colspan="7" class="text-center py-8">
                                     <p class="text-base-content/70">No users found.</p>
                                 </td>
                             </tr>

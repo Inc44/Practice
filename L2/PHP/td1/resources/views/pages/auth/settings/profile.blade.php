@@ -31,6 +31,22 @@
                     />
                     @error('name')
                         <p class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                </div>
+
+                <!-- First Name Input -->
+                <div>
+                    <label class="label-text" for="firstname">First Name</label>
+                    <input
+                        type="text"
+                        id="firstname"
+                        name="firstname"
+                        class="input"
+                        placeholder="Enter your first name"
+                        value="{{ old('firstname', $user->firstname) }}"
+                        required
+                    />
+                    @error('firstname')
+                        <p class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
 
