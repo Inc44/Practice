@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Author;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,15 +10,21 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class BookFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
-        return [
-            //
-        ];
-    }
+	/**
+	 * Define the model's default state.
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function definition(): array
+	{
+		return [
+			"title" => fake()->sentence(3),
+			"description" => fake()->paragraph(),
+			"image" => null,
+			"page" => fake()->numberBetween(100, 1000),
+			"price" => fake()->numberBetween(1, 100),
+			"is_published" => fake()->boolean(90),
+			"author_id" => Author::factory(),
+		];
+	}
 }
