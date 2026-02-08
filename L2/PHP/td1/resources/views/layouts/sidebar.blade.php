@@ -60,7 +60,16 @@
                     <!-- Video Management Menu -->
                     <li>
                         <a href="{{ route('videos.index') }}" @class(['inline-flex w-full items-center px-2', 'menu-active' => request()->routeIs('videos.index')])>
+                            <span class="icon-[tabler--video] size-4.5"></span>
                             <span>Videos</span>
+                        </a>
+                    </li>
+
+                    <!-- Book Management Menu -->
+                    <li>
+                        <a href="{{ route('books.index') }}" @class(['inline-flex w-full items-center px-2', 'menu-active' => request()->routeIs('books.*') || request()->routeIs('authors.*')])>
+                            <span class="icon-[tabler--book] size-4.5"></span>
+                            <span>Books</span>
                         </a>
                     </li>
                 </ul>
