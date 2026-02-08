@@ -23,6 +23,8 @@ class ProfileUpdateTest extends TestCase
 
 		$response = $this->actingAs($user)->put("/settings/profile", [
 			"name" => "Test User",
+			"firstname" => "Test",
+			"lastname" => "User",
 			"email" => "test@example.com",
 		]);
 
@@ -43,6 +45,8 @@ class ProfileUpdateTest extends TestCase
 
 		$response = $this->actingAs($user)->put("/settings/profile", [
 			"name" => "Test User",
+			"firstname" => "Test",
+			"lastname" => "User",
 			"email" => $user->email,
 		]);
 

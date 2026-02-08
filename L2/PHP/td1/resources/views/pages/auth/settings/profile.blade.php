@@ -7,7 +7,7 @@
 			<!-- Name Input -->
 			<div>
 				<label class="label-text" for="name">Name</label>
-				<input type="text" id="name" name="name" class="input" placeholder="Enter your name" value="{{ old('name', $user->name) }}" required autofocus /> @error('name') <p class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+				<input type="text" id="name" name="name" class="input" placeholder="Enter your name" value="{{ old('name', $user->name) }}" required autofocus /> @error('name') <p class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ $message }}</p> @enderror
 			</div>
 			<!-- First Name Input -->
 			<div>
