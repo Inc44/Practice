@@ -16,7 +16,7 @@
 				</thead>
 				<tbody> @forelse ($books as $book) <tr>
 						<td>{{ $book->title }}</td>
-						<td>{{ $book->image ?? '-' }}</td>
+						<td> @if($book->image) <img src="{{ $book->image }}" alt="{{ $book->title }}" class="size-9 rounded-full"> @else <span class="size-9 rounded-full bg-base-200 flex items-center justify-center text-base-content/60">-</span> @endif </td>
 						<td>{{ $book->page }}</td>
 						<td>${{ $book->price }}</td>
 						<td> @if($book->is_published) <span class="badge badge-soft badge-success">Published</span> @else <span class="badge badge-soft badge-warning">Draft</span> @endif </td>

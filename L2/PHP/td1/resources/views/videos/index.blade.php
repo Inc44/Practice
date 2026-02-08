@@ -16,7 +16,7 @@
 				</thead>
 				<tbody> @forelse ($videos as $video) <tr>
 						<td>{{ $video->title }}</td>
-						<td>{{ $video->image ?? '-' }}</td>
+						<td> @if($video->image) <img src="{{ $video->image }}" alt="{{ $video->title }}" class="size-9 rounded-full"> @else <span class="size-9 rounded-full bg-base-200 flex items-center justify-center text-base-content/60">-</span> @endif </td>
 						<td>{{ $video->year }}</td>
 						<td>{{ $video->price }}</td>
 						<td>{{ $video->created_at->format('F j, Y') }}</td>

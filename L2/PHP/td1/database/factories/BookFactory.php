@@ -20,7 +20,12 @@ class BookFactory extends Factory
 		return [
 			"title" => fake()->sentence(3),
 			"description" => fake()->paragraph(),
-			"image" => null,
+			"image" =>
+				"https://picsum.photos/seed/" .
+				fake()
+					->unique()
+					->numberBetween(1, 100) .
+				"/1200/1600",
 			"page" => fake()->numberBetween(100, 1000),
 			"price" => fake()->numberBetween(1, 100),
 			"is_published" => fake()->boolean(90),

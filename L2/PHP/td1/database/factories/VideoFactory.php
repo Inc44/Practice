@@ -19,7 +19,12 @@ class VideoFactory extends Factory
 		return [
 			"title" => fake()->sentence(3),
 			"description" => fake()->paragraph(),
-			"image" => null,
+			"image" =>
+				"https://picsum.photos/seed/" .
+				fake()
+					->unique()
+					->numberBetween(1, 100) .
+				"/1200/1600",
 			"year" => fake()->year(),
 			"price" => fake()->numberBetween(1, 1000),
 			"is_published" => fake()->boolean(),
